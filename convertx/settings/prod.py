@@ -5,7 +5,7 @@ Production settings
 from .base import *
 import django_heroku
 
-DEBUG = False
+DEBUG = os.environ.get('DEBUG_VALUE')
 ALLOWED_HOSTS = ['convertxproject.herokuapp.com']
 
 
