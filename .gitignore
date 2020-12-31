@@ -4,7 +4,11 @@
 # More
 tester1.py
 template1.py
+html1.html
+static/css/tester1.css
 .idea/
+demo/
+temp/
 
 # Django stuff:
 *.log

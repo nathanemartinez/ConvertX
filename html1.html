@@ -1,0 +1,45 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" id="main-navbar">
+  <!--Main navbar link-->
+  <a class="navbar-brand" id="navbar-brand" href="/">ConvertX</a>
+
+  <!--Toggle switch-->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!--Links-->
+  <div class="navbar-collapse collapse justify-content-end" id="navbarSupportedContent">
+
+      <ul class="nav navbar-nav navbar-right">
+
+          <li class="nav-item" id="projects-nav-item">
+              <a class="nav-link" id="projects-nav-link" href="/">Projects</a>
+          </li>
+
+          <li class="nav-item" id="about-nav-item">
+              <a class="nav-link" id="about-nav-link" href="/">About</a>
+          </li>
+
+          <li class="nav-item" id="admin-nav-item">
+              <a class="nav-link" id="admin-nav-link" href="/">Admin</a>
+          </li>
+
+          {% if user.is_authenticated %}
+              <li class="nav-item" id="profile-nav-item">
+                  <a class="nav-link" id="profile-nav-link" href="/">Profile</a>
+              </li>
+              <li class="nav-item" id="logout-nav-item">
+                  <a class="nav-link" id="logout-nav-link" href="/">Logout</a>
+              </li>
+          {% else %}
+              <li class="nav-item" id="login-nav-item">
+                  <a class="nav-link" id="login-nav-link" href="/">Login</a>
+              </li>
+              <li class="nav-item" id="signup-nav-item">
+                  <a class="nav-link" id="signup-nav-link" href="/">Register</a>
+              </li>
+          {% endif %}
+
+      </ul>
+  </div>
+</nav>
