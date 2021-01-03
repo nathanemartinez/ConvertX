@@ -25,11 +25,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # https://docs.djangoproject.com/en/3.1/topics/security/
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # allauth
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 django_heroku.settings(locals())
