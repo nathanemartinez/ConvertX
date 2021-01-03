@@ -21,6 +21,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 REQUIREMENT_APPS = [
@@ -33,7 +34,13 @@ PROJECT_APPS = [
     'users.apps.UsersConfig',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + REQUIREMENT_APPS + PROJECT_APPS
+DJANGO_ALLAUTH_APPS = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+]
+
+INSTALLED_APPS = DJANGO_APPS + REQUIREMENT_APPS + PROJECT_APPS + DJANGO_ALLAUTH_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',  # django-allauth
             ],
             'builtins': ['django.templatetags.static']
         },
@@ -73,6 +81,25 @@ DATABASES = {
     }
 }
 
+
+# django-allauth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# allauth, ref: https://django-allauth.readthedocs.io/en/latest/configuration.html
+SITE_ID = 1
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_MAX_EMAIL_ADDRESSES = 3
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_PRESERVE_USERNAME_CASING = False  # username is stored in lowercase
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True  # enter email twice to avoid typos
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'tester', 'brickspy', 'test', 'superuser', 'staff']  # usernames that can't be used
+ACCOUNT_USERNAME_MIN_LENGTH = 5  # minimum length of username
 
 # Internationalization https://docs.djangoproject.com/en/3.1/topics/i18n/
 LANGUAGE_CODE = 'en-us'
