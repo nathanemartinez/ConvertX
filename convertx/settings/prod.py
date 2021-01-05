@@ -4,8 +4,9 @@ Production settings
 
 from .base import *
 import django_heroku
+import os
 
-ALLOWED_HOSTS = ['convertxproject.herokuapp.com', 'convertxproject.com']
+ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST')]
 
 
 AUTH_PASSWORD_VALIDATORS = [
