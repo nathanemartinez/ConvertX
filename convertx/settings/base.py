@@ -11,6 +11,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 ALLAUTH_DIR = os.path.join(BASE_DIR, 'templates', 'allauth')
 DATABASE_DIR = os.path.join(BASE_DIR, 'db.sqlite3')
 SECRET_KEY = os.environ.get('convertx_secret_key')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 DEBUG = os.environ.get('DEBUG_VALUE')
 
 DJANGO_APPS = [
@@ -113,7 +114,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # ***You might not want to include this in deployment
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [STATIC_PATH, ALLAUTH_DIR]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
