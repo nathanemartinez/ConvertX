@@ -1,8 +1,12 @@
 body {
     /*background-color: #c8deff;*/
-    background-color: #cde0fc;
+    /*background-color: #cde0fc;*/
     /*background-color: #e8f1ff;*/
     /* To prevent navbar from overlapping content */
     /* Go to Google Dev Tools and check the padding */
     padding-top: 84.4px;
+}
+
+.form-width {
+    width: 90%;
 }

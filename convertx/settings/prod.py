@@ -8,6 +8,10 @@ import os
 
 ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST')]
 
+EXTRA_APPS = [
+
+]
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

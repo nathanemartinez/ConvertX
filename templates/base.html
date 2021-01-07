@@ -18,6 +18,11 @@
         {# <script src="{% static 'font_awesome.js' %}" crossorigin="anonymous"></script> #}
         {# Custom favicon #}
         {% block favicon %}{% endblock %}
+
+        {# Extra head content #}
+        {% block more_head %}
+        {% endblock %}
+
         {# Title #}
         <title>{% block title %}ConvertX{% endblock %}</title>
     </head>
@@ -32,10 +37,13 @@
         {% endblock %}
 
         {# Extended content #}
-        {% block content %}
+        {% block contents %}
 
         {% endblock %}
 
+        {# Extra body content #}
+        {% block more_body %}
+        {% endblock %}
     </body>
 </html>
 

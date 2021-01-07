@@ -4,12 +4,11 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print(BASE_DIR)
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+ALLAUTH_DIR = os.path.join(BASE_DIR, 'templates', 'allauth')
 DATABASE_DIR = os.path.join(BASE_DIR, 'db.sqlite3')
 SECRET_KEY = os.environ.get('convertx_secret_key')
 DEBUG = os.environ.get('DEBUG_VALUE')
@@ -25,7 +24,7 @@ DJANGO_APPS = [
 ]
 
 REQUIREMENT_APPS = [
-
+    'crispy_forms',
 ]
 
 PROJECT_APPS = [
@@ -57,7 +56,7 @@ ROOT_URLCONF = 'convertx.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [TEMPLATE_DIR, ALLAUTH_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +118,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 """
 deploy
 """
