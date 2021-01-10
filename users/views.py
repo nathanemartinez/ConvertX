@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def lockout(request):
+	return render(request, 'users/general/lockout.html')

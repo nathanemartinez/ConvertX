@@ -26,6 +26,7 @@ DJANGO_APPS = [
 
 REQUIREMENT_APPS = [
     'crispy_forms',
+    'defender',
 ]
 
 PROJECT_APPS = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'convertx.urls'
@@ -100,6 +102,11 @@ ACCOUNT_PRESERVE_USERNAME_CASING = False  # username is stored in lowercase
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True  # enter email twice to avoid typos
 ACCOUNT_USERNAME_BLACKLIST = ['admin', 'tester', 'brickspy', 'test', 'superuser', 'staff']  # usernames that can't be used
 ACCOUNT_USERNAME_MIN_LENGTH = 5  # minimum length of username
+
+# defender, ref: https://django-defender.readthedocs.io/en/latest/
+DEFENDER_LOCKOUT_TEMPLATE = 'users/general/lockout.html'
+DEFENDER_LOCKOUT_URL = '/'
+DEFENDER_REDIS_URL = os.environ.get('REDIS_URL')
 
 # Internationalization https://docs.djangoproject.com/en/3.1/topics/i18n/
 LANGUAGE_CODE = 'en-us'

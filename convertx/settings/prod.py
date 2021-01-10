@@ -37,4 +37,7 @@ CSRF_COOKIE_SECURE = True
 # allauth
 # ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
+# defender
+DEFENDER_COOLOFF_TIME = 300
+
 django_heroku.settings(locals())
