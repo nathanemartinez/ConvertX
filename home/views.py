@@ -41,3 +41,8 @@ def error_500(request, exception=None):
     return render(request, 'home/error_pages/500.html')
 
 
+"""
+
+committttttttttttt
+
+"""
