@@ -1,5 +1,5 @@
 # **ConvertX**
-A web application build for maximizing conversions.
+A web application built for maximizing conversions.
 
 Website Link: <https://convertxproject.herokuapp.com/>
 

@@ -52,3 +52,5 @@ typing-extensions==3.7.4.3
 urllib3==1.26.2
 whitenoise==5.2.0
 zipp==3.4.0
+
+python-dotenv~=0.15.0

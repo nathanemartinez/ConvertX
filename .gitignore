@@ -9,6 +9,7 @@ static/css/tester1.css
 .idea/
 demo/
 temp/
+env/
 
 # Django stuff:
 *.log
@@ -120,7 +121,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
-env/
+#env/
 venv/
 ENV/
 env.bak/
