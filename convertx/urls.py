@@ -22,7 +22,7 @@ urlpatterns += [
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
-        path('__debug__/', include(debug_toolbar.urls)),
+        path('debug/', include(debug_toolbar.urls)),
     ]
 
 handler400 = 'home.views.error_400'
@@ -30,6 +30,3 @@ handler403 = 'home.views.error_403'
 handler404 = 'home.views.error_404'
 handler500 = 'home.views.error_500'
 
-"""
-testing branches
-"""
