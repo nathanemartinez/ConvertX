@@ -6,7 +6,7 @@ from .base import *
 import django_heroku
 import os
 
-ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST')]
+ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST'), os.environ.get('DOMAIN_HOST_WWW')]
 
 EXTRA_APPS = [
 
