@@ -94,22 +94,22 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # allauth, ref: https://django-allauth.readthedocs.io/en/latest/configuration.html
-SITE_ID = 1
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_MAX_EMAIL_ADDRESSES = 3
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
-ACCOUNT_PRESERVE_USERNAME_CASING = False  # username is stored in lowercase
-ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True  # enter email twice to avoid typos
-ACCOUNT_USERNAME_BLACKLIST = ['admin', 'tester', 'brickspy', 'test', 'superuser', 'staff']  # usernames that can't be used
-ACCOUNT_USERNAME_MIN_LENGTH = 5  # minimum length of username
+SITE_ID = os.getenv('SITE_ID')
+ACCOUNT_AUTHENTICATION_METHOD = os.getenv('ACCOUNT_AUTHENTICATION_METHOD')
+ACCOUNT_EMAIL_REQUIRED = os.getenv('ACCOUNT_EMAIL_REQUIRED')
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = os.getenv('ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS')
+ACCOUNT_EMAIL_VERIFICATION = os.getenv('ACCOUNT_EMAIL_VERIFICATION')
+ACCOUNT_MAX_EMAIL_ADDRESSES = os.getenv('ACCOUNT_MAX_EMAIL_ADDRESSES')
+ACCOUNT_LOGOUT_REDIRECT_URL = os.getenv('ACCOUNT_LOGOUT_REDIRECT_URL')
+ACCOUNT_PRESERVE_USERNAME_CASING = os.getenv('ACCOUNT_PRESERVE_USERNAME_CASING')  # username is stored in lowercase
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = os.getenv('ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE')  # enter email twice to avoid typos
+ACCOUNT_USERNAME_BLACKLIST = eval(os.getenv('ACCOUNT_USERNAME_BLACKLIST'))  # usernames that can't be used
+ACCOUNT_USERNAME_MIN_LENGTH = os.getenv('ACCOUNT_USERNAME_MIN_LENGTH')  # minimum length of username
 
 # defender, ref: https://django-defender.readthedocs.io/en/latest/
-DEFENDER_LOCKOUT_TEMPLATE = 'users/general/lockout.html'
-DEFENDER_LOCKOUT_URL = '/'
-DEFENDER_REDIS_URL = os.environ.get('REDIS_URL')
+DEFENDER_LOCKOUT_TEMPLATE = os.getenv('DEFENDER_LOCKOUT_TEMPLATE')
+DEFENDER_LOCKOUT_URL = os.getenv('DEFENDER_LOCKOUT_URL')
+DEFENDER_REDIS_URL = os.getenv('DEFENDER_REDIS_URL')
 
 # Internationalization https://docs.djangoproject.com/en/3.1/topics/i18n/
 LANGUAGE_CODE = 'en-us'
@@ -123,8 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# ***You might not want to include this in deployment
-STATICFILES_DIRS = [STATIC_PATH, ALLAUTH_DIR]
+STATICFILES_DIRS = [STATIC_PATH, ALLAUTH_DIR]  # ***You might not want to include this in deployment
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
