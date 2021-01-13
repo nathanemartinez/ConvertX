@@ -1,7 +1,7 @@
 # **ConvertX**
 A web application built for maximizing conversions.
 
-Website Link: <https://convertxproject.herokuapp.com/>
+Website Link: <https://convertxproject.com/>
 
 ## **Tech Used**
 * Django
