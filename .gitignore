@@ -9,7 +9,10 @@ static/css/tester1.css
 .idea/
 demo/
 temp/
+
+# env folders and files
 env/
+convertx/settings/env/
 
 # Django stuff:
 *.log
