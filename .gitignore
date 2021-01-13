@@ -13,6 +13,7 @@ temp/
 # env folders and files
 env/
 convertx/settings/env/
+convertx/env
 
 # Django stuff:
 *.log
