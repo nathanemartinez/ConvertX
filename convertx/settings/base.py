@@ -3,8 +3,12 @@ General project settings
 https://docs.djangoproject.com/en/3.1/topics/settings/
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+from dotenv import load_dotenv
+from pathlib import Path
 import os
+
+env_path = Path('env') / '.env'
+load_dotenv(dotenv_path=env_path)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
@@ -117,7 +121,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_URL = '/static/'
+STATIC_URL = "/" + os.getenv('STATIC') + "/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # ***You might not want to include this in deployment
 STATICFILES_DIRS = [STATIC_PATH, ALLAUTH_DIR]
