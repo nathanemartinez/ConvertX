@@ -5,6 +5,7 @@
 tester1.py
 template1.py
 html1.html
+.gitattributes
 static/css/tester1.css
 .idea/
 demo/
