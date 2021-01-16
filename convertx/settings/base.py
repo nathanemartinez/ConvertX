@@ -103,8 +103,7 @@ ACCOUNT_MAX_EMAIL_ADDRESSES = os.getenv('ACCOUNT_MAX_EMAIL_ADDRESSES')
 ACCOUNT_LOGOUT_REDIRECT_URL = os.getenv('ACCOUNT_LOGOUT_REDIRECT_URL')
 ACCOUNT_PRESERVE_USERNAME_CASING = os.getenv('ACCOUNT_PRESERVE_USERNAME_CASING')  # username is stored in lowercase
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = os.getenv('ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE')  # enter email twice to avoid typos
-# todo pushing to heroku produces an error - it might be due to a previous file version - in pictures
-ACCOUNT_USERNAME_BLACKLIST = eval(os.getenv('ACCOUNT_USERNAME_BLACKLIST'))  # usernames that can't be used
+ACCOUNT_USERNAME_BLACKLIST = eval(str(os.getenv('ACCOUNT_USERNAME_BLACKLIST')))  # usernames that can't be used
 ACCOUNT_USERNAME_MIN_LENGTH = os.getenv('ACCOUNT_USERNAME_MIN_LENGTH')  # minimum length of username
 
 # defender, ref: https://django-defender.readthedocs.io/en/latest/
