@@ -17,6 +17,7 @@ ADMIN_URL = str(os.getenv('ADMIN_URL'))
 # Package urls
 urlpatterns = [
     path(f'{ADMIN_URL}/', admin.site.urls),  # normal admin
+    # low get rid of defender url - it just shows a detail view of defender
     path(F'{ADMIN_URL}/defender/', include('defender.urls')),  # defender admin
     path('accounts/', include('allauth.urls')),
 ]
