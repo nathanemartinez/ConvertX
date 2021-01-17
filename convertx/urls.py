@@ -12,13 +12,12 @@ CUR_FILE = os.path.abspath(os.path.dirname(__file__))
 MY_DOTENV_PATH = os.path.join(CUR_FILE, 'env/.env')
 load_dotenv(dotenv_path=MY_DOTENV_PATH)
 
-ADMIN = str(os.getenv('ADMIN'))
-DEBUG = str(os.getenv('DEBUG'))
+ADMIN_URL = str(os.getenv('ADMIN_URL'))
 
 # Package urls
 urlpatterns = [
-    path(f'{ADMIN}/', admin.site.urls),  # normal admin
-    path(F'{ADMIN}/defender/', include('defender.urls')),  # defender admin
+    path(f'{ADMIN_URL}/', admin.site.urls),  # normal admin
+    path(F'{ADMIN_URL}/defender/', include('defender.urls')),  # defender admin
     path('accounts/', include('allauth.urls')),
 ]
 
@@ -31,7 +30,7 @@ urlpatterns += [
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
-        path(f'{DEBUG}/', include(debug_toolbar.urls)),
+        path(f'debug/', include(debug_toolbar.urls)),
     ]
 
 handler400 = 'home.views.error_400'
