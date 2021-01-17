@@ -11,6 +11,7 @@ import os
 env_path = Path('env') / '.env'
 load_dotenv(dotenv_path=env_path)
 
+DEBUG = False
 ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST'), os.environ.get('DOMAIN_HOST_WWW')]
 
 EXTRA_APPS = [
