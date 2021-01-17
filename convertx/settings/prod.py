@@ -3,8 +3,13 @@ Production settings
 """
 
 from .base import *
+from dotenv import load_dotenv
+from pathlib import Path
 import django_heroku
 import os
+
+env_path = Path('env') / '.env'
+load_dotenv(dotenv_path=env_path)
 
 ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST'), os.environ.get('DOMAIN_HOST_WWW')]
 
@@ -33,6 +38,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+# Emails
+DEFAULT_FROM_EMAIL = os.getenv('ADMIN_EMAIL')
+SERVER_EMAIL = os.getenv('ADMIN_EMAIL')
 
 # allauth
 # ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
