@@ -4,11 +4,11 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from dotenv import load_dotenv
-from pathlib import Path
 import os
 
-env_path = Path('env') / '.env'
-load_dotenv(dotenv_path=env_path)
+CUR_FILE = os.path.abspath(os.path.dirname(__file__))
+MY_DOTENV_PATH = os.path.join(CUR_FILE, 'env/.env')
+load_dotenv(dotenv_path=MY_DOTENV_PATH)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
@@ -94,22 +94,23 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # allauth, ref: https://django-allauth.readthedocs.io/en/latest/configuration.html
-SITE_ID = os.getenv('SITE_ID')
-ACCOUNT_AUTHENTICATION_METHOD = os.getenv('ACCOUNT_AUTHENTICATION_METHOD')
-ACCOUNT_EMAIL_REQUIRED = os.getenv('ACCOUNT_EMAIL_REQUIRED')
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = os.getenv('ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS')
-ACCOUNT_EMAIL_VERIFICATION = os.getenv('ACCOUNT_EMAIL_VERIFICATION')
-ACCOUNT_MAX_EMAIL_ADDRESSES = os.getenv('ACCOUNT_MAX_EMAIL_ADDRESSES')
-ACCOUNT_LOGOUT_REDIRECT_URL = os.getenv('ACCOUNT_LOGOUT_REDIRECT_URL')
-ACCOUNT_PRESERVE_USERNAME_CASING = os.getenv('ACCOUNT_PRESERVE_USERNAME_CASING')  # username is stored in lowercase
-ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = os.getenv('ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE')  # enter email twice to avoid typos
+
+SITE_ID = int(os.getenv('SITE_ID'))
+ACCOUNT_AUTHENTICATION_METHOD = str(os.getenv('ACCOUNT_AUTHENTICATION_METHOD'))
+ACCOUNT_EMAIL_REQUIRED = bool(os.getenv('ACCOUNT_EMAIL_REQUIRED'))
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = int(os.getenv('ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS'))
+ACCOUNT_EMAIL_VERIFICATION = str(os.getenv('ACCOUNT_EMAIL_VERIFICATION'))
+ACCOUNT_MAX_EMAIL_ADDRESSES = int(os.getenv('ACCOUNT_MAX_EMAIL_ADDRESSES'))
+ACCOUNT_LOGOUT_REDIRECT_URL = str(os.getenv('ACCOUNT_LOGOUT_REDIRECT_URL'))
+ACCOUNT_PRESERVE_USERNAME_CASING = bool(os.getenv('ACCOUNT_PRESERVE_USERNAME_CASING'))  # username is stored in lowercase
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = bool(os.getenv('ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE'))  # enter email twice to avoid typos
 ACCOUNT_USERNAME_BLACKLIST = eval(str(os.getenv('ACCOUNT_USERNAME_BLACKLIST')))  # usernames that can't be used
-ACCOUNT_USERNAME_MIN_LENGTH = os.getenv('ACCOUNT_USERNAME_MIN_LENGTH')  # minimum length of username
+ACCOUNT_USERNAME_MIN_LENGTH = int(os.getenv('ACCOUNT_USERNAME_MIN_LENGTH'))  # minimum length of username
 
 # defender, ref: https://django-defender.readthedocs.io/en/latest/
-DEFENDER_LOCKOUT_TEMPLATE = os.getenv('DEFENDER_LOCKOUT_TEMPLATE')
-DEFENDER_LOCKOUT_URL = os.getenv('DEFENDER_LOCKOUT_URL')
-DEFENDER_REDIS_URL = os.getenv('DEFENDER_REDIS_URL')
+DEFENDER_LOCKOUT_TEMPLATE = str(os.getenv('DEFENDER_LOCKOUT_TEMPLATE'))
+DEFENDER_LOCKOUT_URL = str(os.getenv('DEFENDER_LOCKOUT_URL'))
+DEFENDER_REDIS_URL = str(os.getenv('DEFENDER_REDIS_URL'))
 
 # Internationalization https://docs.djangoproject.com/en/3.1/topics/i18n/
 LANGUAGE_CODE = 'en-us'

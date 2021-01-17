@@ -4,12 +4,12 @@ Production settings
 
 from .base import *
 from dotenv import load_dotenv
-from pathlib import Path
 import django_heroku
 import os
 
-env_path = Path('env') / '.env'
-load_dotenv(dotenv_path=env_path)
+CUR_FILE = os.path.abspath(os.path.dirname(__file__))
+MY_DOTENV_PATH = os.path.join(CUR_FILE, 'env/.env')
+load_dotenv(dotenv_path=MY_DOTENV_PATH)
 
 DEBUG = False
 ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST'), os.environ.get('DOMAIN_HOST_WWW')]
@@ -41,8 +41,8 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # Emails
-DEFAULT_FROM_EMAIL = os.getenv('ADMIN_EMAIL')
-SERVER_EMAIL = os.getenv('ADMIN_EMAIL')
+DEFAULT_FROM_EMAIL = str(os.getenv('ADMIN_EMAIL'))
+SERVER_EMAIL = str(os.getenv('ADMIN_EMAIL'))
 
 # allauth
 # ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'

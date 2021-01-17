@@ -6,14 +6,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from dotenv import load_dotenv
-from pathlib import Path
 import os
 
-env_path = Path('env/.env')
-load_dotenv(dotenv_path=env_path)
+CUR_FILE = os.path.abspath(os.path.dirname(__file__))
+MY_DOTENV_PATH = os.path.join(CUR_FILE, 'env/.env')
+load_dotenv(dotenv_path=MY_DOTENV_PATH)
 
-ADMIN = os.getenv('ADMIN')
-DEBUG = os.getenv('DEBUG')
+ADMIN = str(os.getenv('ADMIN'))
+DEBUG = str(os.getenv('DEBUG'))
 
 # Package urls
 urlpatterns = [
