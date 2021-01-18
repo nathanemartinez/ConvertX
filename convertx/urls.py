@@ -6,13 +6,13 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from dotenv import load_dotenv
+from pathlib import Path
 import os
 
-CUR_FILE = os.path.abspath(os.path.dirname(__file__))
-MY_DOTENV_PATH = os.path.join(CUR_FILE, 'env/.env')
-load_dotenv(dotenv_path=MY_DOTENV_PATH)
+DOTENV_PATH = Path(__file__).parent.parent / 'env/.env'
+load_dotenv(dotenv_path=DOTENV_PATH)
 
-ADMIN_URL = str(os.getenv('ADMIN_URL'))
+ADMIN_URL = os.getenv('ADMIN_URL')
 
 # Package urls
 urlpatterns = [
