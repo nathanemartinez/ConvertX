@@ -51,6 +51,7 @@ PROJECT_APPS = [
     'home.apps.HomeConfig',
     # 'demo.apps.DemoConfig',
     'users.apps.UsersConfig',
+    'blog.apps.BlogConfig',
 ]
 
 DJANGO_ALLAUTH_APPS = [
