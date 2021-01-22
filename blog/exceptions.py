@@ -1,0 +1,2 @@
+class DefaultUserError(Exception):
+	pass

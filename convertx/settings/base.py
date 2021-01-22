@@ -3,20 +3,6 @@ General project settings
 https://docs.djangoproject.com/en/3.1/topics/settings/
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-sentry_sdk.init(
-    dsn="https://0bc78e59b9bb44eba1120c0db30145c9@o507754.ingest.sentry.io/5599284",
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)
-
-
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -45,6 +31,8 @@ DJANGO_APPS = [
 REQUIREMENT_APPS = [
     'crispy_forms',
     'defender',
+    'tinymce',
+    'simple_history',
 ]
 
 PROJECT_APPS = [
@@ -69,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
     'defender.middleware.FailedLoginMiddleware',
 ]
 
@@ -107,6 +96,9 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+# Custom user model
+AUTH_USER_MODEL = 'users.User'
 
 # allauth, ref: https://django-allauth.readthedocs.io/en/latest/configuration.html
 SITE_ID = int(os.getenv('SITE_ID'))

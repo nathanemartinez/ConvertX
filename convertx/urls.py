@@ -18,7 +18,7 @@ ADMIN_URL = os.getenv('ADMIN_URL')
 urlpatterns = [
     path(f'{ADMIN_URL}/', admin.site.urls),  # normal admin
     # low get rid of defender url - it just shows a detail view of defender
-    path(F'{ADMIN_URL}/defender/', include('defender.urls')),  # defender admin
+    path(f'{ADMIN_URL}/defender/', include('defender.urls')),  # defender admin
     path('accounts/', include('allauth.urls')),
 ]
 
@@ -26,7 +26,7 @@ urlpatterns = [
 urlpatterns += [
     path('', include('home.urls')),
     path('', include('users.urls')),
-    path('', include('blog.urls')),
+    # path('', include('blog.urls')),
 ]
 
 if settings.DEBUG:
