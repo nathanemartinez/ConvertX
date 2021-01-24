@@ -45,6 +45,7 @@ PROJECT_APPS = [
 DJANGO_ALLAUTH_APPS = [
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + REQUIREMENT_APPS + PROJECT_APPS + DJANGO_ALLAUTH_APPS

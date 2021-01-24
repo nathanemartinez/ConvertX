@@ -1,4 +1,17 @@
 {% extends 'base.html' %}
 {% block contents %}
-    <h1 class="text-center">home page - dev</h1>
+    <div class="container">
+        {% include 'home/includes/categories.html' %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                {% include 'home/includes/posts.html' %}
+            </div>
+            <div class="col-md-3">
+                {% include 'home/includes/search.html' %}
+                {% include 'home/includes/tags.html' %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

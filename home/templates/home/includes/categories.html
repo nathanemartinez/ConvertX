@@ -1,0 +1,17 @@
+<h1 class="my-3 text-center">Categories</h1>
+{% for categorys in categories %}
+    <div class="row">
+        {% for category in categorys %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <h5 class="card-header">{{ category.name }}</h5>
+                    <div class="card-body">
+                        <p class="card-text">{{ category.description }}</p>
+                        <a href="{{ category.get_absolute_url }}" class="btn btn-primary">Check it out</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+

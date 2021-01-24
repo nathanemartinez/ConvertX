@@ -1,0 +1,13 @@
+{% for post in posts %}
+    <hr class="line-dark">
+    <div class="row flex-column-reverse flex-md-row">
+        <div class="col-md-6 text-left">
+            <a href="{{ post.get_absolute_url }}" class="text-dark"><h3>{{ post.title }}</h3></a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio!</p>
+            <p class="text-muted">by <strong>{{ post.updated_by }}</strong> | Last Updated {{ post.date_updated | date }}</p>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ post.get_absolute_url }}"><img src="{% static 'images/universe.jpg' %}" alt="red uni" class="img-responsive mb-2" height="175" width="350" style="width: 100%; height: auto;"></a>
+        </div>
+    </div>
+{% endfor %}

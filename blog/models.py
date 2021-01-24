@@ -4,22 +4,23 @@ from django.utils.translation import gettext as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
-
+from django.shortcuts import reverse
+from blog.managers import CategoryManager
 # todo change the default users to custom user like 'tester'
 
 
 class TimeStampCreatorMixin(models.Model):
-	created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='%(class)s_created_by', verbose_name=_("Created By"), null=True)
-	updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='%(class)s_updated_by', verbose_name=_("Updated By"), null=True)
-	date_created = models.DateTimeField(verbose_name=_("Date Created"), auto_now_add=True)
-	date_updated = models.DateTimeField(verbose_name=_("Date Updated"), auto_now=True)
+	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='%(class)s_creator', verbose_name=_("Creator"), null=True)
+	updater = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='%(class)s_updater', verbose_name=_("Updater"), null=True)
+	created_at = models.DateTimeField(verbose_name=_("Date Created"), auto_now_add=True)
+	updated_at = models.DateTimeField(verbose_name=_("Date Updated"), auto_now=True)
 
 	def __str__(self):
-		return self.updated_by
+		return self.updater
 
 	class Meta:
 		abstract = True
-		ordering = ['date_updated']
+		ordering = ['updated_at']
 		verbose_name = _("Timestamp Creator Mixin")
 		verbose_name_plural = _("Timestamp Creator Mixins")
 
@@ -39,10 +40,14 @@ class NameMixin(models.Model):
 
 
 class Category(NameMixin, TimeStampCreatorMixin):
+	objects = CategoryManager()
 	history = HistoricalRecords()
 
 	def __str__(self):
 		return self.name
+
+	def get_absolute_url(self):
+		return reverse('blog:category-detail', kwargs={'pk': self.pk})
 
 	class Meta:
 		ordering = ['name']
