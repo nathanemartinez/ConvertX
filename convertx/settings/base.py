@@ -33,6 +33,7 @@ REQUIREMENT_APPS = [
     'defender',
     'tinymce',
     'simple_history',
+    'guardian',
 ]
 
 PROJECT_APPS = [
@@ -96,6 +97,7 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 ]
 
 # Custom user model
