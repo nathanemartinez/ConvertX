@@ -7,5 +7,4 @@ class User(AbstractUser):
     history = HistoricalRecords()
 
 
-# Group.add_to_class()
-# Group.add_to_class('description', models.CharField(max_length=180,null=True, blank=True))
+Group.add_to_class('description', models.TextField(max_length=200, null=True, blank=False))

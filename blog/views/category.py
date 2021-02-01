@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.shortcuts import reverse, get_object_or_404
 from blog.models import Category
@@ -18,6 +18,7 @@ class CategoryDetailView(DetailView):
 class CategoryCreateView(CreateView):
 	model = Category
 	form_class = CategoryModelForm
+	permission_required = 'blog.add_category'
 	template_name = 'blog/models/category/category_create.html'
 
 	def get_success_url(self):

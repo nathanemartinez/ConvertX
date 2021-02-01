@@ -17,15 +17,15 @@ from guardian.admin import GuardedModelAdmin
 #
 # admin.site.register(models_with_mixins)
 
-models_no_mixins = [AffiliateLink, AffiliateProduct, AffiliateProgram, Category, InfoPost,
+models_no_mixins = [AffiliateImage, AffiliateLink, AffiliateProduct, AffiliateProgram, Category, InfoPost,
 					InfoPostEstimates, NormalImage, NormalLink, ReviewPost, ReviewPostEstimates, Tag, TopMoneyPost,
 					TopMoneyPostEstimates,]
 
 admin.site.register(models_no_mixins, SimpleHistoryAdmin)
 
 
-class AffiliateImageAdmin(GuardedModelAdmin):
-	pass
+# class AffiliateImageAdmin(GuardedModelAdmin):
+# 	pass
 
 
-admin.site.register(AffiliateImage, AffiliateImageAdmin)
+# admin.site.register(AffiliateImage, AffiliateImageAdmin)

@@ -10,6 +10,7 @@ html1.html
 static/css/tester1.css
 .idea/
 demo/
+blog/tester1.py
 temp/
 
 # env folders and files
