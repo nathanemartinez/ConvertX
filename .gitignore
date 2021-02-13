@@ -11,6 +11,7 @@ static/css/tester1.css
 .idea/
 demo/
 blog/tester1.py
+blog/misc
 temp/
 
 # env folders and files

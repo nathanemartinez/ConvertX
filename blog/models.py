@@ -39,7 +39,21 @@ class NameMixin(models.Model):
 		verbose_name_plural = _("Name Mixins")
 
 
-class Category(NameMixin, TimeStampCreatorMixin):
+class ImageMixin(models.Model):
+	alt_tag = models.CharField(verbose_name=_("Alt Tag"), max_length=50)
+	caption = models.TextField(verbose_name=_("Caption"), max_length=100)
+
+	def __str__(self):
+		return self.alt_tag
+
+	class Meta:
+		abstract = True
+		ordering = ['alt_tag']
+		verbose_name = _("Image Mixin")
+		verbose_name_plural = _("Image Mixins")
+
+
+class Category(NameMixin, TimeStampCreatorMixin, ImageMixin):
 	objects = CategoryManager()
 	history = HistoricalRecords()
 
@@ -79,50 +93,7 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
 		verbose_name_plural = _("Affiliate Programs")
 
 
-class PostEstimatesMixin(NameMixin, TimeStampCreatorMixin):
-	monthly_profit = models.IntegerField(verbose_name=_("Profit"), validators=[MaxValueValidator(1000000), MinValueValidator(0)], null=True)
-	cost = models.IntegerField(verbose_name=_("Cost"), validators=[MaxValueValidator(10000), MinValueValidator(0)], null=True)
-	monthly_views = models.IntegerField(verbose_name=_("Monthly Views"), validators=[MaxValueValidator(1000000), MinValueValidator(0)], null=True)
-	rank_difficulty = models.IntegerField(
-		verbose_name=_("Rank Difficulty"),
-		validators=[MaxValueValidator(5), MinValueValidator(1)]
-	)
-
-	def __str__(self):
-		return self.name
-
-	class Meta:
-		abstract = True
-		ordering = ['profit']
-		verbose_name = _("Post Estimates")
-		verbose_name_plural = _("Post Estimates")
-
-
-class TopMoneyPostEstimates(PostEstimatesMixin):
-	history = HistoricalRecords()
-
-	class Meta:
-		verbose_name = _("Top Money Post Estimates")
-		verbose_name_plural = _("Top Money Post Estimates")
-
-
-class ReviewPostEstimates(PostEstimatesMixin):
-	history = HistoricalRecords()
-
-	class Meta:
-		verbose_name = _("Review Post Estimates")
-		verbose_name_plural = _("Review Post Estimates")
-
-
-class InfoPostEstimates(PostEstimatesMixin):
-	history = HistoricalRecords()
-
-	class Meta:
-		verbose_name = _("Info Post Estimates")
-		verbose_name_plural = _("Info Post Estimates")
-
-
-class PostMixin(TimeStampCreatorMixin):
+class PostMixin(TimeStampCreatorMixin, ImageMixin):
 	DRAFT = 'D'
 	HIDDEN = 'H'
 	PUBLISHED = 'P'
@@ -135,7 +106,6 @@ class PostMixin(TimeStampCreatorMixin):
 	h1 = models.CharField(verbose_name=_("H1 Tag"), max_length=50)
 	meta = models.CharField(verbose_name=_("Meta Tag"), max_length=250)
 	conclusion = HTMLField(verbose_name=_("Conclusion"))
-	# affiliate_program = models.ManyToManyField(AffiliateProgram, verbose_name=_("Affiliate Program"))
 	category = models.ManyToManyField(Category, verbose_name=_("Category"))
 	tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
 	year = models.IntegerField(
@@ -158,7 +128,6 @@ class PostMixin(TimeStampCreatorMixin):
 
 
 class TopMoneyPost(PostMixin):
-	post = models.OneToOneField(TopMoneyPostEstimates, on_delete=models.CASCADE, verbose_name=_("Top Money Post Estimates"), null=True)
 	history = HistoricalRecords()
 
 	class Meta:
@@ -167,7 +136,6 @@ class TopMoneyPost(PostMixin):
 
 
 class ReviewPost(PostMixin):
-	post = models.OneToOneField(ReviewPostEstimates, on_delete=models.CASCADE, verbose_name=_("Review Post Estimates"), null=True)
 	history = HistoricalRecords()
 
 	class Meta:
@@ -176,7 +144,6 @@ class ReviewPost(PostMixin):
 
 
 class InfoPost(PostMixin):
-	post = models.OneToOneField(InfoPostEstimates, on_delete=models.CASCADE, verbose_name=_("Info Post Estimates"), null=True)
 	affiliate_program = None
 	history = HistoricalRecords()
 
@@ -185,7 +152,7 @@ class InfoPost(PostMixin):
 		verbose_name_plural = _("Info Posts")
 
 
-class ProductMixin(TimeStampCreatorMixin):
+class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 	title = models.CharField(verbose_name=_("Title"), max_length=100)
 	content = HTMLField()
 	sku_asin = models.CharField(verbose_name=_("Sku or Asin"), max_length=50)
@@ -213,37 +180,6 @@ class AffiliateProduct(ProductMixin):
 	class Meta:
 		verbose_name = _("Affiliate Product")
 		verbose_name_plural = _("Affiliate Products")
-
-
-class ImageMixin(models.Model):
-	alt_tag = models.CharField(verbose_name=_("Alt Tag"), max_length=50)
-	caption = models.TextField(verbose_name=_("Caption"), max_length=100)
-
-	def __str__(self):
-		return self.alt_tag
-
-	class Meta:
-		abstract = True
-		ordering = ['alt_tag']
-		verbose_name = _("Image Mixin")
-		verbose_name_plural = _("Image Mixins")
-
-
-class AffiliateImage(ImageMixin):
-	product = models.ForeignKey(AffiliateProduct, on_delete=models.CASCADE, verbose_name=_("Affiliate Product"), null=True)
-	history = HistoricalRecords()
-
-	class Meta:
-		verbose_name = _("Affiliate Image")
-		verbose_name_plural = _("Affiliate Images")
-
-
-class NormalImage(ImageMixin):
-	history = HistoricalRecords()
-
-	class Meta:
-		verbose_name = _("Normal Image")
-		verbose_name_plural = _("Normal Images")
 
 
 class RefTagMixin(models.Model):
@@ -292,7 +228,7 @@ class LinkMixin(TimeStampCreatorMixin):
 
 
 class AffiliateLink(LinkMixin):
-	affiliate_tag = models.CharField(verbose_name=_("Affiliate Tag"), max_length=20)
+	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
 	product = models.ForeignKey(AffiliateProduct, on_delete=models.CASCADE, verbose_name=_("Affiliate Product"), null=True)
 	history = HistoricalRecords()
 
