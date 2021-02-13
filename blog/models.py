@@ -40,8 +40,9 @@ class NameMixin(models.Model):
 
 
 class ImageMixin(models.Model):
-	alt_tag = models.CharField(verbose_name=_("Alt Tag"), max_length=50)
-	caption = models.TextField(verbose_name=_("Caption"), max_length=100)
+	alt_tag = models.CharField(verbose_name=_("Alt Tag"), max_length=50, null=True)
+	caption = models.TextField(verbose_name=_("Caption"), max_length=100, null=True)
+	file = models.ImageField(verbose_name=_("File"), upload_to='blog/images/', default='blog/images/default.jpg')
 
 	def __str__(self):
 		return self.alt_tag
@@ -162,6 +163,7 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 	manufacturer = models.CharField(verbose_name=_("Manufacturer"), max_length=20)
 	affiliate_program = models.ManyToManyField(AffiliateProgram, verbose_name=_("Affiliate Program"))
 	available = models.BooleanField(verbose_name=_("Available"), default=True)
+
 	# todo add pros and cons, add keywords
 
 	def __str__(self):
@@ -174,12 +176,32 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 		verbose_name_plural = _("Product Mixins")
 
 
-class AffiliateProduct(ProductMixin):
+class TopMoneyProduct(ProductMixin):
+	post = models.ForeignKey(TopMoneyPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
+
 	history = HistoricalRecords()
 
 	class Meta:
-		verbose_name = _("Affiliate Product")
-		verbose_name_plural = _("Affiliate Products")
+		verbose_name = _("Top Money Product")
+		verbose_name_plural = _("Top Money Products")
+
+
+class ReviewProduct(ProductMixin):
+	post = models.ForeignKey(ReviewPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
+	history = HistoricalRecords()
+
+	class Meta:
+		verbose_name = _("Review Product")
+		verbose_name_plural = _("Review Products")
+
+
+class InfoProduct(ProductMixin):
+	post = models.ForeignKey(InfoPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
+	history = HistoricalRecords()
+
+	class Meta:
+		verbose_name = _("Info Product")
+		verbose_name_plural = _("Info Products")
 
 
 class RefTagMixin(models.Model):
@@ -227,14 +249,34 @@ class LinkMixin(TimeStampCreatorMixin):
 		verbose_name_plural = _("Link Mixins")
 
 
-class AffiliateLink(LinkMixin):
+class TopMoneyLink(LinkMixin):
 	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
-	product = models.ForeignKey(AffiliateProduct, on_delete=models.CASCADE, verbose_name=_("Affiliate Product"), null=True)
+	product = models.ForeignKey(TopMoneyProduct, on_delete=models.CASCADE, verbose_name=_("Product"), null=True)
 	history = HistoricalRecords()
 
 	class Meta:
-		verbose_name = _("Affiliate Link")
-		verbose_name_plural = _("Affiliate Links")
+		verbose_name = _("Top Money Link")
+		verbose_name_plural = _("Top Money Links")
+
+
+class ReviewLink(LinkMixin):
+	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
+	product = models.ForeignKey(ReviewProduct, on_delete=models.CASCADE, verbose_name=_("Product"), null=True)
+	history = HistoricalRecords()
+
+	class Meta:
+		verbose_name = _("Review Link")
+		verbose_name_plural = _("Review Links")
+
+
+class InfoLink(LinkMixin):
+	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
+	product = models.ForeignKey(InfoProduct, on_delete=models.CASCADE, verbose_name=_("Product"), null=True)
+	history = HistoricalRecords()
+
+	class Meta:
+		verbose_name = _("Info Link")
+		verbose_name_plural = _("Info Links")
 
 
 class NormalLink(LinkMixin):

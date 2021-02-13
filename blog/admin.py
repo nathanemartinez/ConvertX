@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import (AffiliateImage, AffiliateLink, AffiliateProduct, AffiliateProgram, Category, InfoPost,
-					 NormalImage, NormalLink, ReviewPost, Tag, TopMoneyPost, )
+from .models import (AffiliateProgram, Category, Tag, InfoPost, ReviewPost,
+					 TopMoneyPost, TopMoneyProduct, ReviewProduct, InfoProduct, AffiliateTag, TopMoneyLink, ReviewLink,
+					 InfoLink, NormalLink, )
 from simple_history.admin import SimpleHistoryAdmin
-from guardian.admin import GuardedModelAdmin
+# from guardian.admin import GuardedModelAdmin
 
 # from .models import (AffiliateImage, AffiliateLink, AffiliateProduct, AffiliateProgram, Category, ImageMixin, InfoPost,
 # 					 InfoPostEstimates, LinkMixin, NameMixin, NormalImage, NormalLink, PostEstimatesMixin, PostMixin,
@@ -16,11 +17,13 @@ from guardian.admin import GuardedModelAdmin
 #
 # admin.site.register(models_with_mixins)
 
-models_no_mixins = [AffiliateImage, AffiliateLink, AffiliateProduct, AffiliateProgram, Category, InfoPost,
-					NormalImage, NormalLink, ReviewPost, Tag, TopMoneyPost,
-					]
+# models_no_mixins = [AffiliateProgram, Category, Tag, InfoPost, ReviewPost, TopMoneyPost, TopMoneyProduct, ReviewProduct,
+# 					InfoProduct, AffiliateTag, TopMoneyLink, ReviewLink, InfoLink, NormalLink,]
 
-admin.site.register(models_no_mixins, SimpleHistoryAdmin)
+models_no_mixins_no_repeats = [AffiliateProgram, Category, Tag, TopMoneyPost, TopMoneyProduct, AffiliateTag, TopMoneyLink]
+
+# admin.site.register(models_no_mixins, SimpleHistoryAdmin)
+admin.site.register(models_no_mixins_no_repeats, SimpleHistoryAdmin)
 
 
 # class AffiliateImageAdmin(GuardedModelAdmin):
