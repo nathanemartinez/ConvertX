@@ -6,6 +6,8 @@ from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
 from django.shortcuts import reverse
 from blog.managers import CategoryManager
+from .utils import check_args
+from .constants import MODEL_ARGS
 # todo change the default users to custom user like 'tester'
 
 
@@ -64,6 +66,13 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin):
 	def get_absolute_url(self):
 		return reverse('blog:category-detail', kwargs={'pk': self.pk})
 
+	@classmethod
+	def create_category(cls, **kwargs):
+		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
+
 	class Meta:
 		ordering = ['name']
 		verbose_name = _("Category")
@@ -76,22 +85,17 @@ class Tag(NameMixin, TimeStampCreatorMixin):
 	def __str__(self):
 		return self.name
 
+	@classmethod
+	def create_tag(cls, **kwargs):
+		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
+
 	class Meta:
 		ordering = ['name']
 		verbose_name = _("Tag")
 		verbose_name_plural = _("Tags")
-
-
-class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
-	history = HistoricalRecords()
-
-	def __str__(self):
-		return self.name
-
-	class Meta:
-		ordering = ['name']
-		verbose_name = _("Affiliate Program")
-		verbose_name_plural = _("Affiliate Programs")
 
 
 class PostMixin(TimeStampCreatorMixin, ImageMixin):
@@ -128,8 +132,34 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 		verbose_name_plural = _("Post Mixins")
 
 
+class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
+	history = HistoricalRecords()
+
+	def __str__(self):
+		return self.name
+
+	@classmethod
+	def create_affiliate_program(cls, **kwargs):
+		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
+
+	class Meta:
+		ordering = ['name']
+		verbose_name = _("Affiliate Program")
+		verbose_name_plural = _("Affiliate Programs")
+
+
 class TopMoneyPost(PostMixin):
 	history = HistoricalRecords()
+
+	@classmethod
+	def create_post(cls, **kwargs):
+		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
 
 	class Meta:
 		verbose_name = _("Top Money Post")
@@ -138,6 +168,13 @@ class TopMoneyPost(PostMixin):
 
 class ReviewPost(PostMixin):
 	history = HistoricalRecords()
+
+	@classmethod
+	def create_post(cls, **kwargs):
+		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
 
 	class Meta:
 		verbose_name = _("Review Post")
@@ -148,6 +185,13 @@ class InfoPost(PostMixin):
 	affiliate_program = None
 	history = HistoricalRecords()
 
+	@classmethod
+	def create_post(cls, **kwargs):
+		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
+
 	class Meta:
 		verbose_name = _("Info Post")
 		verbose_name_plural = _("Info Posts")
@@ -156,7 +200,7 @@ class InfoPost(PostMixin):
 class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 	title = models.CharField(verbose_name=_("Title"), max_length=100)
 	content = HTMLField()
-	sku_asin = models.CharField(verbose_name=_("Sku or Asin"), max_length=50)
+	sku = models.CharField(verbose_name=_("Sku or Asin"), max_length=50)
 	price = models.DecimalField(verbose_name=_("Price"), max_digits=9, decimal_places=2)
 	currency = models.CharField(verbose_name=_("Currency"), default="USD", max_length=10)
 	brand = models.CharField(verbose_name=_("Brand"), max_length=20)
@@ -178,8 +222,14 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 
 class TopMoneyProduct(ProductMixin):
 	post = models.ForeignKey(TopMoneyPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
-
 	history = HistoricalRecords()
+
+	@classmethod
+	def create_product(cls, **kwargs):
+		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
 
 	class Meta:
 		verbose_name = _("Top Money Product")
@@ -190,6 +240,13 @@ class ReviewProduct(ProductMixin):
 	post = models.ForeignKey(ReviewPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
 	history = HistoricalRecords()
 
+	@classmethod
+	def create_product(cls, **kwargs):
+		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
+
 	class Meta:
 		verbose_name = _("Review Product")
 		verbose_name_plural = _("Review Products")
@@ -198,6 +255,13 @@ class ReviewProduct(ProductMixin):
 class InfoProduct(ProductMixin):
 	post = models.ForeignKey(InfoPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
 	history = HistoricalRecords()
+
+	@classmethod
+	def create_product(cls, **kwargs):
+		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
+		check_args(required_args, **kwargs)
+		obj = cls.objects.create(**kwargs)
+		return obj
 
 	class Meta:
 		verbose_name = _("Info Product")
