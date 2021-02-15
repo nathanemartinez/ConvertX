@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 ALLAUTH_DIR = os.path.join(BASE_DIR, 'templates', 'allauth')
 DATABASE_DIR = os.path.join(BASE_DIR, 'db.sqlite3')
-SECRET_KEY = os.environ.get('convertx_secret_key')  # high change secret key
+SECRET_KEY = os.environ.get('convertx_secret_key')  # low change secret key
 STATIC_PATH = os.path.join(BASE_DIR, 'static')
 DEBUG = os.environ.get('DEBUG_VALUE')
 
