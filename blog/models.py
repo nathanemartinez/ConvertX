@@ -5,7 +5,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
 from django.shortcuts import reverse
-from blog.managers import CategoryManager
+from blog.managers import (CategoryManager, TagManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
+						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
+						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
+						   NormalLinkManager)
 from .utils import check_args
 from .constants import MODEL_ARGS
 # todo change the default users to custom user like 'tester'
@@ -66,13 +69,6 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin):
 	def get_absolute_url(self):
 		return reverse('blog:category-detail', kwargs={'pk': self.pk})
 
-	@classmethod
-	def create_category(cls, **kwargs):
-		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
-
 	class Meta:
 		ordering = ['name']
 		verbose_name = _("Category")
@@ -80,17 +76,11 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin):
 
 
 class Tag(NameMixin, TimeStampCreatorMixin):
+	objects = TagManager()
 	history = HistoricalRecords()
 
 	def __str__(self):
 		return self.name
-
-	@classmethod
-	def create_tag(cls, **kwargs):
-		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		ordering = ['name']
@@ -133,17 +123,11 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 
 
 class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
+	objects = AffiliateProgramManager()
 	history = HistoricalRecords()
 
 	def __str__(self):
 		return self.name
-
-	@classmethod
-	def create_affiliate_program(cls, **kwargs):
-		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		ordering = ['name']
@@ -152,14 +136,8 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
 
 
 class TopMoneyPost(PostMixin):
+	objects = TopMoneyPostManager()
 	history = HistoricalRecords()
-
-	@classmethod
-	def create_post(cls, **kwargs):
-		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		verbose_name = _("Top Money Post")
@@ -167,14 +145,8 @@ class TopMoneyPost(PostMixin):
 
 
 class ReviewPost(PostMixin):
+	objects = ReviewPostManager()
 	history = HistoricalRecords()
-
-	@classmethod
-	def create_post(cls, **kwargs):
-		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		verbose_name = _("Review Post")
@@ -183,14 +155,8 @@ class ReviewPost(PostMixin):
 
 class InfoPost(PostMixin):
 	affiliate_program = None
+	objects = InfoPostManager()
 	history = HistoricalRecords()
-
-	@classmethod
-	def create_post(cls, **kwargs):
-		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		verbose_name = _("Info Post")
@@ -222,14 +188,8 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 
 class TopMoneyProduct(ProductMixin):
 	post = models.ForeignKey(TopMoneyPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
+	objects = TopMoneyProductManager()
 	history = HistoricalRecords()
-
-	@classmethod
-	def create_product(cls, **kwargs):
-		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		verbose_name = _("Top Money Product")
@@ -238,14 +198,8 @@ class TopMoneyProduct(ProductMixin):
 
 class ReviewProduct(ProductMixin):
 	post = models.ForeignKey(ReviewPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
+	objects = ReviewProductManager()
 	history = HistoricalRecords()
-
-	@classmethod
-	def create_product(cls, **kwargs):
-		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		verbose_name = _("Review Product")
@@ -254,14 +208,8 @@ class ReviewProduct(ProductMixin):
 
 class InfoProduct(ProductMixin):
 	post = models.ForeignKey(InfoPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
+	objects = InfoProductManager()
 	history = HistoricalRecords()
-
-	@classmethod
-	def create_product(cls, **kwargs):
-		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
-		check_args(required_args, **kwargs)
-		obj = cls.objects.create(**kwargs)
-		return obj
 
 	class Meta:
 		verbose_name = _("Info Product")
@@ -283,6 +231,7 @@ class RefTagMixin(models.Model):
 
 
 class AffiliateTag(RefTagMixin):
+	objects = AffiliateTagManager()
 	history = HistoricalRecords()
 
 	class Meta:
@@ -316,6 +265,7 @@ class LinkMixin(TimeStampCreatorMixin):
 class TopMoneyLink(LinkMixin):
 	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
 	product = models.ForeignKey(TopMoneyProduct, on_delete=models.CASCADE, verbose_name=_("Product"), null=True)
+	objects = TopMoneyLinkManager()
 	history = HistoricalRecords()
 
 	class Meta:
@@ -326,6 +276,7 @@ class TopMoneyLink(LinkMixin):
 class ReviewLink(LinkMixin):
 	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
 	product = models.ForeignKey(ReviewProduct, on_delete=models.CASCADE, verbose_name=_("Product"), null=True)
+	objects = ReviewLinkManager()
 	history = HistoricalRecords()
 
 	class Meta:
@@ -336,6 +287,7 @@ class ReviewLink(LinkMixin):
 class InfoLink(LinkMixin):
 	tag = models.ForeignKey(AffiliateTag, on_delete=models.CASCADE, verbose_name=_("Affiliate Tag"), null=True)
 	product = models.ForeignKey(InfoProduct, on_delete=models.CASCADE, verbose_name=_("Product"), null=True)
+	objects = InfoLinkManager()
 	history = HistoricalRecords()
 
 	class Meta:
@@ -344,6 +296,7 @@ class InfoLink(LinkMixin):
 
 
 class NormalLink(LinkMixin):
+	objects = NormalLinkManager()
 	history = HistoricalRecords()
 
 	class Meta:
