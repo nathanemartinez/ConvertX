@@ -8,7 +8,7 @@ from django.shortcuts import reverse
 from blog.managers import (CategoryManager, TagManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
 						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
 						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
-						   NormalLinkManager)
+						   )
 from .utils import check_args
 from .constants import MODEL_ARGS
 # todo change the default users to custom user like 'tester'
@@ -169,8 +169,6 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 	sku = models.CharField(verbose_name=_("Sku or Asin"), max_length=50)
 	price = models.DecimalField(verbose_name=_("Price"), max_digits=9, decimal_places=2)
 	currency = models.CharField(verbose_name=_("Currency"), default="USD", max_length=10)
-	brand = models.CharField(verbose_name=_("Brand"), max_length=20)
-	manufacturer = models.CharField(verbose_name=_("Manufacturer"), max_length=20)
 	affiliate_program = models.ManyToManyField(AffiliateProgram, verbose_name=_("Affiliate Program"))
 	available = models.BooleanField(verbose_name=_("Available"), default=True)
 
@@ -295,11 +293,11 @@ class InfoLink(LinkMixin):
 		verbose_name_plural = _("Info Links")
 
 
-class NormalLink(LinkMixin):
-	objects = NormalLinkManager()
-	history = HistoricalRecords()
-
-	class Meta:
-		verbose_name = _("Normal Link")
-		verbose_name_plural = _("Normal Links")
+# class NormalLink(LinkMixin):
+# 	objects = NormalLinkManager()
+# 	history = HistoricalRecords()
+#
+# 	class Meta:
+# 		verbose_name = _("Normal Link")
+# 		verbose_name_plural = _("Normal Links")
 

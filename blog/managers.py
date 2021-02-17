@@ -3,7 +3,12 @@ from .constants import MODEL_ARGS
 from .utils import check_args
 
 
-class CategoryManager(models.Manager):
+class AbstractManager(models.Manager):
+	def delete_everything(self):
+		self.all().delete()
+
+
+class CategoryManager(AbstractManager):
 	def create_category(self, **kwargs):
 		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS']
 		check_args(required_args, **kwargs)
@@ -11,7 +16,7 @@ class CategoryManager(models.Manager):
 		return obj
 
 
-class TagManager(models.Manager):
+class TagManager(AbstractManager):
 	def create_tag(self, **kwargs):
 		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
 		check_args(required_args, **kwargs)
@@ -19,7 +24,7 @@ class TagManager(models.Manager):
 		return obj
 
 
-class AffiliateProgramManager(models.Manager):
+class AffiliateProgramManager(AbstractManager):
 	def create_affiliate_program(self, **kwargs):
 		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
 		check_args(required_args, **kwargs)
@@ -27,7 +32,7 @@ class AffiliateProgramManager(models.Manager):
 		return obj
 
 
-class TopMoneyPostManager(models.Manager):
+class TopMoneyPostManager(AbstractManager):
 	def create_post(self, **kwargs):
 		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
 		check_args(required_args, **kwargs)
@@ -35,7 +40,7 @@ class TopMoneyPostManager(models.Manager):
 		return obj
 
 
-class ReviewPostManager(models.Manager):
+class ReviewPostManager(AbstractManager):
 	def create_post(self, **kwargs):
 		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
 		check_args(required_args, **kwargs)
@@ -43,7 +48,7 @@ class ReviewPostManager(models.Manager):
 		return obj
 
 
-class InfoPostManager(models.Manager):
+class InfoPostManager(AbstractManager):
 	def create_post(self, **kwargs):
 		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['POST_ARGS']
 		check_args(required_args, **kwargs)
@@ -51,7 +56,7 @@ class InfoPostManager(models.Manager):
 		return obj
 
 
-class TopMoneyProductManager(models.Manager):
+class TopMoneyProductManager(AbstractManager):
 	def create_product(self, **kwargs):
 		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
 		check_args(required_args, **kwargs)
@@ -59,7 +64,7 @@ class TopMoneyProductManager(models.Manager):
 		return obj
 
 
-class ReviewProductManager(models.Manager):
+class ReviewProductManager(AbstractManager):
 	def create_product(self, **kwargs):
 		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
 		check_args(required_args, **kwargs)
@@ -67,7 +72,7 @@ class ReviewProductManager(models.Manager):
 		return obj
 
 
-class InfoProductManager(models.Manager):
+class InfoProductManager(AbstractManager):
 	def create_product(self, **kwargs):
 		required_args = MODEL_ARGS['TIMESTAMP_ARGS'] + MODEL_ARGS['IMAGE_ARGS'] + MODEL_ARGS['PRODUCT_ARGS']
 		check_args(required_args, **kwargs)
@@ -75,41 +80,41 @@ class InfoProductManager(models.Manager):
 		return obj
 
 
-class AffiliateTagManager(models.Manager):
-	def create_product(self, **kwargs):
+class AffiliateTagManager(AbstractManager):
+	def create_tag(self, **kwargs):
 		required_args = MODEL_ARGS['REF_TAG_ARGS']
 		check_args(required_args, **kwargs)
 		obj = self.create(**kwargs)
 		return obj
 
 
-class TopMoneyLinkManager(models.Manager):
-	def create_product(self, **kwargs):
+class TopMoneyLinkManager(AbstractManager):
+	def create_link(self, **kwargs):
 		required_args = MODEL_ARGS['LINK_ARGS'] + MODEL_ARGS['TOP_MONEY_LINK']
 		check_args(required_args, **kwargs)
 		obj = self.create(**kwargs)
 		return obj
 
 
-class ReviewLinkManager(models.Manager):
-	def create_product(self, **kwargs):
+class ReviewLinkManager(AbstractManager):
+	def create_link(self, **kwargs):
 		required_args = MODEL_ARGS['LINK_ARGS'] + MODEL_ARGS['REVIEW_LINK']
 		check_args(required_args, **kwargs)
 		obj = self.create(**kwargs)
 		return obj
 
 
-class InfoLinkManager(models.Manager):
-	def create_product(self, **kwargs):
+class InfoLinkManager(AbstractManager):
+	def create_link(self, **kwargs):
 		required_args = MODEL_ARGS['LINK_ARGS'] + MODEL_ARGS['INFO_LINK']
 		check_args(required_args, **kwargs)
 		obj = self.create(**kwargs)
 		return obj
 
 
-class NormalLinkManager(models.Manager):
-	def create_product(self, **kwargs):
-		required_args = MODEL_ARGS['LINK_ARGS']
-		check_args(required_args, **kwargs)
-		obj = self.create(**kwargs)
-		return obj
+# class NormalLinkManager(models.Manager):
+# 	def create_product(self, **kwargs):
+# 		required_args = MODEL_ARGS['LINK_ARGS']
+# 		check_args(required_args, **kwargs)
+# 		obj = self.create(**kwargs)
+# 		return obj

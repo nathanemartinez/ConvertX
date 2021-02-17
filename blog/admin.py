@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (AffiliateProgram, Category, Tag, InfoPost, ReviewPost,
 					 TopMoneyPost, TopMoneyProduct, ReviewProduct, InfoProduct, AffiliateTag, TopMoneyLink, ReviewLink,
-					 InfoLink, NormalLink, )
+					 InfoLink)
 from simple_history.admin import SimpleHistoryAdmin
 # from guardian.admin import GuardedModelAdmin
 
