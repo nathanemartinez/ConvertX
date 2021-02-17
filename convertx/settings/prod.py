@@ -16,11 +16,10 @@ sentry_sdk.init(
 
 from .base import *
 from dotenv import load_dotenv
-from pathlib import Path
+from convertx.constants import DOTENV_PATH
 import django_heroku
 import os
 
-DOTENV_PATH = Path(__file__).parent.parent.parent / 'env/.env'
 load_dotenv(dotenv_path=DOTENV_PATH)
 
 DEBUG = False

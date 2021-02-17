@@ -6,10 +6,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from dotenv import load_dotenv
-from pathlib import Path
+from convertx.constants import DOTENV_PATH
 import os
 
-DOTENV_PATH = Path(__file__).parent.parent / 'env/.env'
 load_dotenv(dotenv_path=DOTENV_PATH)
 
 ADMIN_URL = os.getenv('ADMIN_URL')

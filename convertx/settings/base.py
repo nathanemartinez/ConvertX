@@ -4,10 +4,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 from dotenv import load_dotenv
-from pathlib import Path
+from convertx.constants import DOTENV_PATH
 import os
 
-DOTENV_PATH = Path(__file__).parent.parent.parent / 'env/.env'
 load_dotenv(dotenv_path=DOTENV_PATH)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
