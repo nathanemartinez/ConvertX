@@ -1,12 +1,10 @@
-from django.conf import settings
+from django.contrib.auth import get_user_model
 from .exceptions import DefaultUserError
 from convertx.constants import SUPERUSER_USERNAME
 
 try:
-	User = settings.AUTH_USER_MODEL
-	user = User.objects.get(pk=2)
-	if (user.is_superuser is False) or (user.username != SUPERUSER_USERNAME):
-		raise DefaultUserError
+	User = get_user_model()
+	user = User.objects.get(is_superuser=True, username=SUPERUSER_USERNAME)
 except:
 	raise DefaultUserError
 
@@ -17,8 +15,8 @@ MODEL_ARGS = {
 	'NAME_ARGS': ('name', 'description'),
 	'TIMESTAMP_ARGS': ('creator', 'updater', 'created_at', 'updated_at'),
 	'IMAGE_ARGS': ('alt_tag', 'caption'),
-	'POST_ARGS': ('title', 'h1', 'meta', 'conclusion', 'category', 'tag', 'year', 'status'),
-	'PRODUCT_ARGS': ('title', 'content', 'sku_asin', 'price', 'currency', 'affiliate_program', 'available'),
+	'POST_ARGS': ('title', 'h1', 'meta', 'conclusion', 'year', 'status'),
+	'PRODUCT_ARGS': ('title', 'content', 'sku', 'price', 'currency', 'available'),
 	'REF_TAG_ARGS': ('tag', 'program'),
 	'LINK_ARGS': ('follow', 'link', 'anchor_text'),
 	'TOP_MONEY_LINK': ('tag', 'product'),

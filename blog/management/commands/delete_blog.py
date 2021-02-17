@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
-from blog.models import (Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
-						 PostMixin)
+from blog.models import (Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,)
 
 
 class Command(BaseCommand):
@@ -14,5 +13,4 @@ class Command(BaseCommand):
 		TopMoneyPost.objects.delete_everything()
 		TopMoneyProduct.objects.delete_everything()
 		TopMoneyLink.objects.delete_everything()
-		PostMixin.objects.delete_everything()
 		self.stdout.write('Task completed successfully')

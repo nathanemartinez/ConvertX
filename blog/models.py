@@ -169,7 +169,6 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 	sku = models.CharField(verbose_name=_("Sku or Asin"), max_length=50)
 	price = models.DecimalField(verbose_name=_("Price"), max_digits=9, decimal_places=2)
 	currency = models.CharField(verbose_name=_("Currency"), default="USD", max_length=10)
-	affiliate_program = models.ManyToManyField(AffiliateProgram, verbose_name=_("Affiliate Program"))
 	available = models.BooleanField(verbose_name=_("Available"), default=True)
 
 	# todo add pros and cons, add keywords
