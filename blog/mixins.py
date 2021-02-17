@@ -1,20 +1,27 @@
 from django.core.exceptions import PermissionDenied
 
 
-class GroupRequiredMixin(object):
+class PermsRequiredMixin:
     """
-        group_required - list of strings, required param
+    :param perms: list of permission strings
     """
-
-    group_required = None
+    perms = None
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            raise PermissionDenied
+        if request.user.has_perms(perm_list=self.perms):
+            return super().dispatch(request, *args, **kwargs)
         else:
-            user_groups = []
-            for group in request.user.groups.values_list('name', flat=True):
-                user_groups.append(group)
-            if len(set(user_groups).intersection(self.group_required)) <= 0:
-                raise PermissionDenied
-        return super(GroupRequiredMixin, self).dispatch(request, *args, **kwargs)
+            raise PermissionDenied
+
+
+class GroupsRequiredMixin:
+    """
+    :param groups: list of group strings
+    """
+    groups = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.groups.filter(name__in=self.groups).exists():
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied

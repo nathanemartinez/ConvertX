@@ -8,7 +8,6 @@ try:
 except:
 	raise DefaultUserError
 
-
 # low make this more DRY by using model fields
 # Ex: https://stackoverflow.com/questions/38367226/django-get-all-required-fields
 MODEL_ARGS = {
@@ -23,5 +22,10 @@ MODEL_ARGS = {
 	'REVIEW_LINK': ('tag', 'product'),
 	'INFO_LINK': ('tag', 'product'),
 }
+
+ACCESS_GROUPS = ['superuser', 'admin', 'blog admin']
+
+
+
 
 

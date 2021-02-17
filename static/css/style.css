@@ -10,3 +10,9 @@ body {
 .form-width {
     width: 90%;
 }
+
+.breadcrumb {
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    padding: .8rem;
+}
