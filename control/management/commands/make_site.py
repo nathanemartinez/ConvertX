@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from convertx.constants import SUPERUSER_USERNAME, SUPERUSER_EMAIL, SUPERUSER_PASSWORD
 
 
-class MakeSite(BaseCommand):
+class Command(BaseCommand):
     help = 'Makes the site'
 
     @staticmethod
