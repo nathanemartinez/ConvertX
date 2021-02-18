@@ -11,10 +11,17 @@ import os
 
 load_dotenv(dotenv_path=DOTENV_PATH)
 
+urlpatterns = []
+
 ADMIN_URL = os.getenv('ADMIN_URL')
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path(f'debug/', include(debug_toolbar.urls)),
+    ]
 
 # Package urls
-urlpatterns = [
+urlpatterns += [
     path(f'{ADMIN_URL}/', admin.site.urls),  # normal admin
     # low get rid of defender url - it just shows a detail view of defender
     path(f'{ADMIN_URL}/defender/', include('defender.urls')),  # defender admin
@@ -28,11 +35,6 @@ urlpatterns += [
     path('blog/', include('blog.urls')),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [
-        path(f'debug/', include(debug_toolbar.urls)),
-    ]
 
 handler400 = 'home.views.error_400'
 handler403 = 'home.views.error_403'
