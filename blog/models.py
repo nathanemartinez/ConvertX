@@ -11,6 +11,9 @@ from blog.managers import (CategoryManager, TagManager, AffiliateProgramManager,
 						   )
 from .utils import check_args
 from .constants import MODEL_ARGS
+from blog.model_methods import (CategoryMethods, TagMethods, AffiliateProgramMethods, AffiliateTagMethods, \
+								TopMoneyPostMethods, TopMoneyProductMethods)
+
 # todo change the default users to custom user like 'tester'
 
 
@@ -59,7 +62,7 @@ class ImageMixin(models.Model):
 		verbose_name_plural = _("Image Mixins")
 
 
-class Category(NameMixin, TimeStampCreatorMixin, ImageMixin):
+class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 	objects = CategoryManager()
 	history = HistoricalRecords()
 
@@ -75,7 +78,7 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin):
 		verbose_name_plural = _("Categories")
 
 
-class Tag(NameMixin, TimeStampCreatorMixin):
+class Tag(NameMixin, TimeStampCreatorMixin, TagMethods):
 	objects = TagManager()
 	history = HistoricalRecords()
 
@@ -122,7 +125,7 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 		verbose_name_plural = _("Post Mixins")
 
 
-class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
+class AffiliateProgram(NameMixin, TimeStampCreatorMixin, AffiliateProgramMethods):
 	objects = AffiliateProgramManager()
 	history = HistoricalRecords()
 
@@ -135,7 +138,7 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin):
 		verbose_name_plural = _("Affiliate Programs")
 
 
-class TopMoneyPost(PostMixin):
+class TopMoneyPost(PostMixin, TopMoneyPostMethods):
 	objects = TopMoneyPostManager()
 	history = HistoricalRecords()
 
@@ -183,7 +186,7 @@ class ProductMixin(TimeStampCreatorMixin, ImageMixin):
 		verbose_name_plural = _("Product Mixins")
 
 
-class TopMoneyProduct(ProductMixin):
+class TopMoneyProduct(ProductMixin, TopMoneyProductMethods):
 	post = models.ForeignKey(TopMoneyPost, on_delete=models.CASCADE, verbose_name=_("Post"), null=True)
 	objects = TopMoneyProductManager()
 	history = HistoricalRecords()
@@ -227,7 +230,7 @@ class RefTagMixin(models.Model):
 		verbose_name_plural = _("Ref Mixins")
 
 
-class AffiliateTag(RefTagMixin):
+class AffiliateTag(RefTagMixin, AffiliateTagMethods):
 	objects = AffiliateTagManager()
 	history = HistoricalRecords()
 

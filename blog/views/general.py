@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from blog.mixins import PermsRequiredMixin, GroupsRequiredMixin
 from blog.constants import ACCESS_GROUPS
-
+from blog.models import Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct
 
 class BlogManage(GroupsRequiredMixin, TemplateView):
 	template_name = 'blog/general/manage.html'
@@ -9,5 +9,5 @@ class BlogManage(GroupsRequiredMixin, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		data = super().get_context_data(**kwargs)
-		data['iters'] = '123456'
+		data['models'] = [Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct]
 		return data
