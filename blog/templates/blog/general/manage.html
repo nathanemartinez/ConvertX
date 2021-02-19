@@ -11,13 +11,14 @@
         <div class="row">
             {% for model in models %}
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <ul class="list-group mb-4">
-                        <li class="list-group-item active">{{ model.get_model_str }}</li>
-                        <li class="list-group-item bg-light"><a href="{{ model.get_list_url }}">{{ model.get_model_str }} List</a></li>
-                        <li class="list-group-item bg-light"><a href="{{ model.get_create_url }}">{{ model.get_model_str }} Create</a></li>
-                    </ul>
+                    <div class="list-group mb-4">
+                        <div class="list-group-item active">{{ model.get_model_str }}</div>
+                        <a class="list-group-item" href="{{ model.get_list_url }}"> {{ model.get_model_str }} List</a>
+                        <a class="list-group-item" href="{{ model.get_create_url }}">{{ model.get_model_str }} Create</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
     </div>
 {% endblock %}
+

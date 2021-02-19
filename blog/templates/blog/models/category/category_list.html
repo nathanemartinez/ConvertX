@@ -1,3 +1,29 @@
-{% for obj in object_list %}
-<h1>{{ obj }}</h1>
-{% endfor %}
+{% extends 'blog/base.html' %}
+{% block blog_title %}Category List{% endblock %}
+
+{% block blog_content %}
+<div class="container">
+    <div class="my-jumbotron mt-2">
+        <h1>Categories</h1>
+        <hr class="my-3">
+        <p>Find the best products in every category you can think of!</p>
+    </div>
+
+    {% for object in object_list %}
+        <div class="row">
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>{{ object.name }}</h3>
+                <p>{{ object.description}}</p>
+                <a class="btn btn-primary" href="{{ object.get_absolute_url }}">View Category</a>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+</div>
+{% endblock %}

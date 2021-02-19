@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.shortcuts import reverse, get_object_or_404
 from blog.models import Category
+from blog.managers import CategoryManager
 from blog.model_forms import CategoryModelForm
 
 
@@ -9,10 +10,19 @@ class CategoryListView(ListView):
 	model = Category
 	template_name = 'blog/models/category/category_list.html'
 
+	def get_queryset(self):
+		objs = Category.objects.display()
+		return objs
+
 
 class CategoryDetailView(DetailView):
 	model = Category
 	template_name = 'blog/models/category/category_detail.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['posts'] = None
+		return context
 
 
 class CategoryCreateView(CreateView):

@@ -13,7 +13,7 @@ from .utils import check_args
 from .constants import MODEL_ARGS
 from blog.model_methods import (CategoryMethods, TagMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								TopMoneyPostMethods, TopMoneyProductMethods)
-
+from blog.querysets import CategoryQuerySet
 # todo change the default users to custom user like 'tester'
 
 
@@ -63,8 +63,8 @@ class ImageMixin(models.Model):
 
 
 class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
-	objects = CategoryManager()
 	history = HistoricalRecords()
+	objects = CategoryManager.from_queryset(CategoryQuerySet)()
 
 	def __str__(self):
 		return self.name
@@ -76,6 +76,19 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 		ordering = ['name']
 		verbose_name = _("Category")
 		verbose_name_plural = _("Categories")
+
+
+class SubCategory(NameMixin, TimeStampCreatorMixin):
+	post = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_("Category"), null=True)
+	history = HistoricalRecords()
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		ordering = ['name']
+		verbose_name = _("Sub Category")
+		verbose_name_plural = _("Sub Categories")
 
 
 class Tag(NameMixin, TimeStampCreatorMixin, TagMethods):
@@ -104,7 +117,7 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 	h1 = models.CharField(verbose_name=_("H1 Tag"), max_length=50)
 	meta = models.CharField(verbose_name=_("Meta Tag"), max_length=250)
 	conclusion = HTMLField(verbose_name=_("Conclusion"))
-	category = models.ManyToManyField(Category, verbose_name=_("Category"))
+	subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name=_("Sub Category"), null=True)
 	tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
 	year = models.IntegerField(
 		verbose_name=_("Year"),

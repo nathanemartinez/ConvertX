@@ -1,6 +1,7 @@
 from django.db import models
 from .constants import MODEL_ARGS
 from .utils import check_args
+from blog.querysets import CategoryQuerySet
 
 
 class AbstractManager(models.Manager):
