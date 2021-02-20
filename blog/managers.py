@@ -17,6 +17,14 @@ class CategoryManager(AbstractManager):
 		return obj
 
 
+class SubCategoryManager(AbstractManager):
+	def create_subcategory(self, **kwargs):
+		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']
+		check_args(required_args, **kwargs)
+		obj = self.create(**kwargs)
+		return obj
+
+
 class TagManager(AbstractManager):
 	def create_tag(self, **kwargs):
 		required_args = MODEL_ARGS['NAME_ARGS'] + MODEL_ARGS['TIMESTAMP_ARGS']

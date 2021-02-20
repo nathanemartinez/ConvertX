@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
-from blog.models import (Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,)
+from blog.models import (Category, SubCategory, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct,
+						 TopMoneyLink,)
 
 
 class Command(BaseCommand):
@@ -7,6 +8,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **kwargs):
 		Category.objects.delete_everything()
+		SubCategory.objects.delete_everything()
 		Tag.objects.delete_everything()
 		AffiliateProgram.objects.delete_everything()
 		AffiliateTag.objects.delete_everything()

@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
 from django.shortcuts import reverse
-from blog.managers import (CategoryManager, TagManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
+from blog.managers import (CategoryManager, SubCategoryManager, TagManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
 						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
 						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
 						   )
@@ -63,8 +63,8 @@ class ImageMixin(models.Model):
 
 
 class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
-	history = HistoricalRecords()
 	objects = CategoryManager.from_queryset(CategoryQuerySet)()
+	history = HistoricalRecords()
 
 	def __str__(self):
 		return self.name
@@ -79,7 +79,8 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 
 
 class SubCategory(NameMixin, TimeStampCreatorMixin):
-	post = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_("Category"), null=True)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_("Category"), null=True)
+	objects = SubCategoryManager()
 	history = HistoricalRecords()
 
 	def __str__(self):

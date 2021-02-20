@@ -1,15 +1,13 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from blog.models import (Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
+from blog.models import (Category, SubCategory, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
                          PostMixin)
 from blog.constants import user
 
 
 class Command(BaseCommand):
     """
-    This command will generate 80 objects.
-    Each obj takes approximately .75 seconds to generate
-    80 objects take approximately 60 seconds to generate.
+    Creates a dummy blog
     """
     help = 'Creates a dummy blog'
     now = timezone.now()
@@ -130,6 +128,15 @@ class Command(BaseCommand):
                 tag.name = f'Tag {counter2}'
                 tag.save()
 
+                # Subcategory
+                my_kwargs = self.get_name_mixin_fields()
+                my_kwargs.update(self.get_timestamp_mixin_fields())
+                my_kwargs.update(self.get_timestamp_mixin_fields())
+                subcategory = SubCategory.objects.create_subcategory(**my_kwargs)
+                subcategory.name = f'Sub Category {counter2}'
+                subcategory.category = category
+                subcategory.save()
+
                 for j in range(2):
                     counter3 += 1
                     # Create top money post
@@ -138,7 +145,7 @@ class Command(BaseCommand):
                     my_kwargs.update(self.get_image_mixin_fields())
                     post = TopMoneyPost.objects.create_post(**my_kwargs)
                     post.title = f'Post {counter3}'
-                    post.category.add(category)
+                    post.subcategory = subcategory
                     post.tag.add(tag)
                     post.save()
 
