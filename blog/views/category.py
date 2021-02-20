@@ -4,11 +4,13 @@ from django.shortcuts import reverse, get_object_or_404
 from blog.models import Category
 from blog.managers import CategoryManager
 from blog.model_forms import CategoryModelForm
+from blog.constants import PAG_BY
 
 
 class CategoryListView(ListView):
 	model = Category
 	template_name = 'blog/models/category/category_list.html'
+	paginate_by = PAG_BY
 
 	def get_queryset(self):
 		objs = Category.objects.display()

@@ -8,7 +8,6 @@
         <hr class="my-3">
         <p>Find the best products in every category you can think of!</p>
     </div>
-
     {% for object in object_list %}
         <div class="row">
             <div class="col-md-7">
@@ -24,6 +23,27 @@
         </div>
         <hr>
     {% endfor %}
+
+    {% if is_paginated %}
+    <ul class="pagination">
+    {% if page_obj.has_previous %}
+        <li>
+            <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+        </li>
+    {% endif %}
+        <li class="">
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+        </li>
+    {% if page_obj.has_next %}
+        <li>
+            <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+        </li>
+    {% endif %}
+    </ul>
+    {% else %}
+        <h3>Your File Exam</h3>
+        <p>File not yet available</p>
+    {% endif %}
 
 </div>
 {% endblock %}
