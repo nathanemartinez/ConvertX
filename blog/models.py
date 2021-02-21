@@ -86,6 +86,11 @@ class SubCategory(NameMixin, TimeStampCreatorMixin):
 	def __str__(self):
 		return self.name
 
+	def get_posts(self):
+		objs = TopMoneyPost.objects.all()[:4]
+		# self.topmoneypost_set.all()[:5]
+		return objs
+
 	class Meta:
 		ordering = ['name']
 		verbose_name = _("Sub Category")

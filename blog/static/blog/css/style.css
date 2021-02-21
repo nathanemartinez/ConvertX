@@ -5,7 +5,16 @@
     border-radius: .3rem;
 }
 
+.my-jumbotron hr {
+    height: .05rem;
+    opacity: 1;
+}
+
 hr.black-line {
     height: .2rem;
     opacity: 1;
+}
+
+.w-80 {
+    width: 90%;
 }

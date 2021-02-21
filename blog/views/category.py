@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from django.shortcuts import reverse, get_object_or_404
-from blog.models import Category
+from django.views.generic.list import MultipleObjectMixin
+from django.shortcuts import reverse, get_object_or_404, get_list_or_404
+from blog.models import Category, SubCategory, TopMoneyPost
 from blog.managers import CategoryManager
 from blog.model_forms import CategoryModelForm
 from blog.constants import PAG_BY
@@ -17,13 +18,19 @@ class CategoryListView(ListView):
 		return objs
 
 
-class CategoryDetailView(DetailView):
+class CategoryDetailListView(ListView):
 	model = Category
 	template_name = 'blog/models/category/category_detail.html'
+	paginate_by = PAG_BY
+
+	def get_queryset(self):
+		obj = get_object_or_404(Category, pk=self.kwargs['pk'])
+		objs = get_list_or_404(SubCategory, category=obj)
+		return objs
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['posts'] = None
+		context['category'] = get_object_or_404(Category, pk=self.kwargs['pk'])
 		return context
 
 
