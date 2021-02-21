@@ -2,6 +2,12 @@ from django.shortcuts import reverse
 
 
 class CategoryMethods:
+	def get_absolute_url(self):
+		return reverse('blog:category-detail', kwargs={'pk': self.pk})
+
+	def get_detail_list_url(self):
+		return reverse('blog:category-detail-list', kwargs={'pk': self.pk})
+
 	@staticmethod
 	def get_list_url():
 		return reverse('blog:category-list')

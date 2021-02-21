@@ -1,4 +1,9 @@
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% extends 'blog/base.html' %}
+{% block blog_title %}Create Category{% endblock %}
+
+{% block blog_content %}
+    <div class="container-fluid form-width">
+        <h1 class="text-center form-title">Create Category</h1>
+        {% include 'blog/includes/form.html' %}
+    </div>
+{% endblock %}

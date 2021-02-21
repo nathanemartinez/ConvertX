@@ -20,7 +20,7 @@ class CategoryListView(ListView):
 
 class CategoryDetailListView(ListView):
 	model = Category
-	template_name = 'blog/models/category/category_detail.html'
+	template_name = 'blog/models/category/category_detail_list.html'
 	paginate_by = PAG_BY
 
 	def get_queryset(self):
@@ -32,6 +32,11 @@ class CategoryDetailListView(ListView):
 		context = super().get_context_data(**kwargs)
 		context['category'] = get_object_or_404(Category, pk=self.kwargs['pk'])
 		return context
+
+
+class CategoryDetailView(DetailView):
+	model = Category
+	template_name = 'blog/models/category/category_detail.html'
 
 
 class CategoryCreateView(CreateView):

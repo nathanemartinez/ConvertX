@@ -49,8 +49,8 @@ class NameMixin(models.Model):
 
 class ImageMixin(models.Model):
 	alt_tag = models.CharField(verbose_name=_("Alt Tag"), max_length=50, null=True)
-	caption = models.TextField(verbose_name=_("Caption"), max_length=100, null=True)
-	file = models.ImageField(verbose_name=_("File"), upload_to='blog/images/', default='blog/images/default.jpg')
+	caption = models.CharField(verbose_name=_("Caption"), max_length=100, null=True)
+	file = models.ImageField(verbose_name=_("File"), upload_to='blog/images/', default='blog/images/default.jpg', blank=True)
 
 	def __str__(self):
 		return self.alt_tag
@@ -69,8 +69,8 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 	def __str__(self):
 		return self.name
 
-	def get_absolute_url(self):
-		return reverse('blog:category-detail', kwargs={'pk': self.pk})
+	# def get_absolute_url(self):
+	# 	return reverse('blog:category-detail', kwargs={'pk': self.pk})
 
 	class Meta:
 		ordering = ['name']
