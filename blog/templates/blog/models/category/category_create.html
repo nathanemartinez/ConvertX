@@ -1,9 +1,12 @@
 {% extends 'blog/base.html' %}
-{% block blog_title %}Create Category{% endblock %}
+{#{% load i18n %}#}
 
+{#{% block blog_title %}#}
+{#    {% blocktranslate with name=object.get_model_str %}Create {{ name }}{% endblocktranslate %}#}
+{#{% endblock %}#}
 {% block blog_content %}
     <div class="container-fluid form-width">
-        <h1 class="text-center form-title">Create Category</h1>
+        <h1 class="text-center form-title">Create {{ view.model.get_model_str }}</h1>
         {% include 'blog/includes/form.html' %}
     </div>
 {% endblock %}

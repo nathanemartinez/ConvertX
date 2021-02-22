@@ -16,9 +16,9 @@ class CategoryMethods:
 	def get_create_url():
 		return reverse('blog:category-create')
 
-	@staticmethod
-	def get_model_str():
-		return 'Category'
+	# @staticmethod
+	# def get_model_str():
+	# 	return 'Category'
 
 
 class TagMethods:

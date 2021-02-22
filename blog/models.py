@@ -71,7 +71,9 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 
 	# def get_absolute_url(self):
 	# 	return reverse('blog:category-detail', kwargs={'pk': self.pk})
-
+	@staticmethod
+	def get_model_str():
+		return 'Category'
 	class Meta:
 		ordering = ['name']
 		verbose_name = _("Category")
