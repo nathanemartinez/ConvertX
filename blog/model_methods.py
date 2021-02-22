@@ -1,7 +1,17 @@
 from django.shortcuts import reverse
 
 
-class CategoryMethods:
+class AbstractMethods:
+	@staticmethod
+	def get_create_str():
+		return 'Create'
+
+	@staticmethod
+	def get_update_str():
+		return 'Update'
+
+
+class CategoryMethods(AbstractMethods):
 	def get_absolute_url(self):
 		return reverse('blog:category-detail', kwargs={'pk': self.pk})
 
