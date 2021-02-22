@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'defender.middleware.FailedLoginMiddleware',
+
 ]
 
 ROOT_URLCONF = 'convertx.urls'

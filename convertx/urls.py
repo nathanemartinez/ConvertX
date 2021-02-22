@@ -14,11 +14,11 @@ load_dotenv(dotenv_path=DOTENV_PATH)
 urlpatterns = []
 
 ADMIN_URL = os.getenv('ADMIN_URL')
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [
-        path(f'debug/', include(debug_toolbar.urls)),
-    ]
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns += [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#     ]
 
 # Package urls
 urlpatterns += [
