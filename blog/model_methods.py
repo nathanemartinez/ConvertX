@@ -10,6 +10,10 @@ class AbstractMethods:
 	def get_update_str():
 		return 'Update'
 
+	@staticmethod
+	def get_delete_str():
+		return 'Delete'
+
 
 class CategoryMethods(AbstractMethods):
 	def get_absolute_url(self):
