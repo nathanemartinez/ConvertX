@@ -24,5 +24,8 @@ MODEL_ARGS = {
 }
 
 ACCESS_GROUPS = ['superuser', 'admin', 'blog admin']
+ACCESS = {
+	'CATEGORY': ['superuser', 'admin', 'blog admin']
+}
 PAG_BY = 10
 
