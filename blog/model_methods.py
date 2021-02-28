@@ -41,6 +41,12 @@ class CategoryMethods(AbstractMethods):
 	# 	return 'Category'
 
 
+class SubCategoryMethods:
+	@staticmethod
+	def get_model_str():
+		return 'Subcategory'
+
+
 class TagMethods:
 	@staticmethod
 	def get_model_str():

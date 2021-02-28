@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (AffiliateProgram, Category, SubCategory, Tag, InfoPost, ReviewPost,
+from .models import (AffiliateProgram, Category, SubCategory, InfoPost, ReviewPost,
 					 TopMoneyPost, TopMoneyProduct, ReviewProduct, InfoProduct, AffiliateTag, TopMoneyLink, ReviewLink,
 					 InfoLink)
 from simple_history.admin import SimpleHistoryAdmin
@@ -20,7 +20,7 @@ from simple_history.admin import SimpleHistoryAdmin
 # models_no_mixins = [AffiliateProgram, Category, Tag, InfoPost, ReviewPost, TopMoneyPost, TopMoneyProduct, ReviewProduct,
 # 					InfoProduct, AffiliateTag, TopMoneyLink, ReviewLink, InfoLink, NormalLink,]
 
-models_no_mixins_no_repeats = [AffiliateProgram, Category, SubCategory, Tag, TopMoneyPost, TopMoneyProduct, AffiliateTag, TopMoneyLink]
+models_no_mixins_no_repeats = [AffiliateProgram, Category, SubCategory, TopMoneyPost, TopMoneyProduct, AffiliateTag, TopMoneyLink]
 
 # admin.site.register(models_no_mixins, SimpleHistoryAdmin)
 admin.site.register(models_no_mixins_no_repeats, SimpleHistoryAdmin)

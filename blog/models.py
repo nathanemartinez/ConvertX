@@ -5,16 +5,17 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
 from django.shortcuts import reverse
-from blog.managers import (CategoryManager, SubCategoryManager, TagManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
+from blog.managers import (CategoryManager, SubCategoryManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
 						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
 						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
 						   )
 from .utils import check_args
 from .constants import MODEL_ARGS
-from blog.model_methods import (CategoryMethods, TagMethods, AffiliateProgramMethods, AffiliateTagMethods, \
+from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								TopMoneyPostMethods, TopMoneyProductMethods)
 from blog.querysets import CategoryQuerySet
-# todo change the default users to custom user like 'tester'
+# low change the default users to custom user like 'tester'
+# low add "display" field to all models. like category model
 
 
 class TimeStampCreatorMixin(models.Model):
@@ -50,7 +51,7 @@ class NameMixin(models.Model):
 class ImageMixin(models.Model):
 	alt_tag = models.CharField(verbose_name=_("Alt Tag"), max_length=50, null=True)
 	caption = models.CharField(verbose_name=_("Caption"), max_length=100, null=True)
-	file = models.ImageField(verbose_name=_("File"), upload_to='blog/images/', default='blog/images/default.jpg', blank=True)
+	file = models.ImageField(verbose_name=_("File"), upload_to='blog/images/', default='blog/images/default.jpg')
 
 	def __str__(self):
 		return self.alt_tag
@@ -80,7 +81,7 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 		verbose_name_plural = _("Categories")
 
 
-class SubCategory(NameMixin, TimeStampCreatorMixin):
+class SubCategory(NameMixin, TimeStampCreatorMixin, SubCategoryMethods):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_("Category"), null=True)
 	objects = SubCategoryManager()
 	history = HistoricalRecords()
@@ -99,17 +100,17 @@ class SubCategory(NameMixin, TimeStampCreatorMixin):
 		verbose_name_plural = _("Sub Categories")
 
 
-class Tag(NameMixin, TimeStampCreatorMixin, TagMethods):
-	objects = TagManager()
-	history = HistoricalRecords()
-
-	def __str__(self):
-		return self.name
-
-	class Meta:
-		ordering = ['name']
-		verbose_name = _("Tag")
-		verbose_name_plural = _("Tags")
+# class Tag(NameMixin, TimeStampCreatorMixin, TagMethods):
+# 	objects = TagManager()
+# 	history = HistoricalRecords()
+#
+# 	def __str__(self):
+# 		return self.name
+#
+# 	class Meta:
+# 		ordering = ['name']
+# 		verbose_name = _("Tag")
+# 		verbose_name_plural = _("Tags")
 
 
 class PostMixin(TimeStampCreatorMixin, ImageMixin):
@@ -126,7 +127,7 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 	meta = models.CharField(verbose_name=_("Meta Tag"), max_length=250)
 	conclusion = HTMLField(verbose_name=_("Conclusion"))
 	subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name=_("Sub Category"), null=True)
-	tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
+	# tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
 	year = models.IntegerField(
 		verbose_name=_("Year"),
 		validators=[MaxValueValidator(3000), MinValueValidator(2020)],

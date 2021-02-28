@@ -14,26 +14,30 @@
                 <a class="btn btn-danger" href="{{ category.get_delete_url }}">Delete Category</a>
             {% endif %}
         </div>
-        <hr class="black-line">
-        {% for subcategory in object_list %}
-            <div class="row">
-                <h3>{{ subcategory.name }}</h3>
-                {% for post in subcategory.get_posts %}
-                    <div class="col-xl-3 col-sm-6">
-                        <br>
-                        <div class="card">
-                            <img src="http://placehold.it/300x200" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ post.title }}</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        {% if object_list %}
+            <hr class="black-line">
+            {% for subcategory in object_list %}
+                <div class="row">
+                    <h3>{{ subcategory.name }}</h3>
+                    {% for post in subcategory.get_posts %}
+                        <div class="col-xl-3 col-sm-6">
+                            <br>
+                            <div class="card">
+                                <img src="http://placehold.it/300x200" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ post.title }}</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-                <hr class="black-line mt-4">
-            </div>
-        {% endfor %}
-        {% include 'components/paginator.html' %}
+                    {% endfor %}
+                    <hr class="black-line mt-4">
+                </div>
+            {% endfor %}
+            {% include 'components/paginator.html' %}
+        {% else %}
+            <p class="h1 text-center">There are no subcategories to display.</p>
+        {% endif %}
     </div>
 
 

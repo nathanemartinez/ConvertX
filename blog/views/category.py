@@ -7,7 +7,9 @@ from blog.managers import CategoryManager
 from blog.model_forms import CategoryModelForm
 from blog.constants import PAG_BY, ACCESS_GROUPS
 from django.contrib.auth import get_user_model
-
+from django.core.exceptions import ObjectDoesNotExist
+from blog.mixins import GroupsRequiredMixin, PermsRequiredMixin
+from blog.constants import ACCESS
 User = get_user_model()
 
 
@@ -33,7 +35,10 @@ class CategoryDetailListView(ListView):
 
 	def get_queryset(self):
 		obj = get_object_or_404(Category, pk=self.kwargs['pk'])
-		objs = get_list_or_404(SubCategory, category=obj)
+		try:
+			objs = SubCategory.objects.filter(category=obj)
+		except ObjectDoesNotExist:
+			return []
 		return objs
 
 	def get_context_data(self, **kwargs):
@@ -43,16 +48,11 @@ class CategoryDetailListView(ListView):
 		return context
 
 
-# class CategoryDetailView(DetailView):
-# 	model = Category
-# 	template_name = 'blog/models/category/category_detail.html'
-
-
-class CategoryCreateView(CreateView):
+class CategoryCreateView(PermsRequiredMixin, CreateView):
 	model = Category
 	form_class = CategoryModelForm
-	permission_required = 'blog.add_category'
 	template_name = 'blog/models/category/category_create.html'
+	perms = 'blog.add_category'
 
 	def get_success_url(self):
 		return self.object.get_absolute_url()
@@ -63,10 +63,11 @@ class CategoryCreateView(CreateView):
 		return super().form_valid(form)
 
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(PermsRequiredMixin, UpdateView):
 	model = Category
 	form_class = CategoryModelForm
 	template_name = 'blog/models/category/category_update.html'
+	perms = 'blog.change_category'
 
 	def get_success_url(self):
 		return self.object.get_absolute_url()
@@ -76,12 +77,12 @@ class CategoryUpdateView(UpdateView):
 		return super().form_valid(form)
 
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(PermsRequiredMixin, DeleteView):
 	model = Category
 	template_name = 'blog/models/category/category_delete.html'
-	context_object_name = 'category'
+	perms = 'blog.delete_category'
 
 	def get_success_url(self):
-		return reverse('home:home')
+		return Category.get_list_url()
 
 
