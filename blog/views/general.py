@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from blog.mixins import PermsRequiredMixin, GroupsRequiredMixin
 from blog.constants import ACCESS_GROUPS
-from blog.models import Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct
+from blog.models import Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct
 
 
 class BlogManage(GroupsRequiredMixin, TemplateView):
@@ -10,5 +10,5 @@ class BlogManage(GroupsRequiredMixin, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['models'] = [Category, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct]
+		context['models'] = [Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct]
 		return context
