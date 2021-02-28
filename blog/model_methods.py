@@ -17,10 +17,16 @@ class AbstractMethods:
 
 class CategoryMethods(AbstractMethods):
 	def get_absolute_url(self):
-		return reverse('blog:category-detail', kwargs={'pk': self.pk})
+		return reverse('blog:category-detail-list', kwargs={'pk': self.pk})
 
 	def get_detail_list_url(self):
 		return reverse('blog:category-detail-list', kwargs={'pk': self.pk})
+
+	def get_update_url(self):
+		return reverse('blog:category-update', kwargs={'pk': self.pk})
+
+	def get_delete_url(self):
+		return reverse('blog:category-delete', kwargs={'pk': self.pk})
 
 	@staticmethod
 	def get_list_url():

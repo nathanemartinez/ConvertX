@@ -20,6 +20,10 @@
                     <h3>{{ object.name }}</h3>
                     <p>{{ object.description}}</p>
                     <a class="btn btn-primary" href="{{ object.get_detail_list_url }}">View Category</a>
+                    {% if access %}
+                        <a class="btn btn-success" href="{{ object.get_update_url }}">Update Category</a>
+                        <a class="btn btn-danger" href="{{ object.get_delete_url }}">Delete Category</a>
+                    {% endif %}
                 </div>
             </div>
             <hr class="black-line">

@@ -5,7 +5,10 @@ from django.shortcuts import reverse, get_object_or_404, get_list_or_404
 from blog.models import Category, SubCategory, TopMoneyPost
 from blog.managers import CategoryManager
 from blog.model_forms import CategoryModelForm
-from blog.constants import PAG_BY
+from blog.constants import PAG_BY, ACCESS_GROUPS
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class CategoryListView(ListView):
@@ -16,6 +19,11 @@ class CategoryListView(ListView):
 	def get_queryset(self):
 		objs = Category.objects.display()
 		return objs
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['access'] = User.in_groups(ACCESS_GROUPS, self.request.user)
+		return context
 
 
 class CategoryDetailListView(ListView):
@@ -31,12 +39,13 @@ class CategoryDetailListView(ListView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['category'] = get_object_or_404(Category, pk=self.kwargs['pk'])
+		context['access'] = User.in_groups(ACCESS_GROUPS, self.request.user)
 		return context
 
 
-class CategoryDetailView(DetailView):
-	model = Category
-	template_name = 'blog/models/category/category_detail.html'
+# class CategoryDetailView(DetailView):
+# 	model = Category
+# 	template_name = 'blog/models/category/category_detail.html'
 
 
 class CategoryCreateView(CreateView):

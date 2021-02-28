@@ -3,11 +3,16 @@
 
 
 {% block blog_content %}
-    <div class="container-fluid w-80">
+    <div class="container-fluid w-90">
         <div class="my-jumbotron mt-2">
             <h1>{{ category.name }}</h1>
             <hr class="my-3">
             <p>{{ category.description }}</p>
+            {% if access %}
+                <a class="btn btn-primary" href="{{ category.get_list_url }}">Category List</a>
+                <a class="btn btn-success" href="{{ category.get_update_url }}">Update Category</a>
+                <a class="btn btn-danger" href="{{ category.get_delete_url }}">Delete Category</a>
+            {% endif %}
         </div>
         <hr class="black-line">
         {% for subcategory in object_list %}

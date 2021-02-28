@@ -18,3 +18,7 @@ hr.black-line {
 .form-title {
     margin-top: 1rem;
 }
+
+.w-90 {
+    width: 90%;
+}
