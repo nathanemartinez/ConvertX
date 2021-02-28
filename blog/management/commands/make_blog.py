@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from blog.models import (Category, SubCategory, Tag, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
+from blog.models import (Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
                          PostMixin)
 from blog.constants import user
 
@@ -84,7 +84,7 @@ class Command(BaseCommand):
         return fields
 
     @staticmethod
-    def get_top_money_link_fields(tag: Tag, product: TopMoneyProduct):
+    def get_top_money_link_fields(tag, product):
         fields = {
             'tag': tag,
             'product': product,
@@ -119,14 +119,14 @@ class Command(BaseCommand):
             affiliate_tag.tag = f'Affiliate Tag {counter1}'
             affiliate_tag.save()
 
-            for k in range(4):
+            for k in range(2):
                 counter2 += 1
                 # Create tag
-                my_kwargs = self.get_name_mixin_fields()
-                my_kwargs.update(self.get_timestamp_mixin_fields())
-                tag = Tag.objects.create_tag(**my_kwargs)
-                tag.name = f'Tag {counter2}'
-                tag.save()
+                # my_kwargs = self.get_name_mixin_fields()
+                # my_kwargs.update(self.get_timestamp_mixin_fields())
+                # tag = Tag.objects.create_tag(**my_kwargs)
+                # tag.name = f'Tag {counter2}'
+                # tag.save()
 
                 # Subcategory
                 my_kwargs = self.get_name_mixin_fields()
@@ -137,7 +137,7 @@ class Command(BaseCommand):
                 subcategory.category = category
                 subcategory.save()
 
-                for j in range(2):
+                for j in range(1):
                     counter3 += 1
                     # Create top money post
                     my_kwargs = self.get_post_mixin_fields()
@@ -146,10 +146,10 @@ class Command(BaseCommand):
                     post = TopMoneyPost.objects.create_post(**my_kwargs)
                     post.title = f'Post {counter3}'
                     post.subcategory = subcategory
-                    post.tag.add(tag)
+                    # post.tag.add(tag)
                     post.save()
 
-                    for f in range(5):
+                    for f in range(2):
                         counter4 += 1
                         # Create top money product
                         my_kwargs = self.get_product_mixin_fields()
