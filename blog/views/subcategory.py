@@ -1,7 +1,7 @@
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.shortcuts import get_object_or_404
 from blog.models import SubCategory, TopMoneyPost
-from blog.model_forms import CategoryModelForm
+from blog.model_forms import SubCategoryModelForm
 from blog.constants import PAG_BY, ACCESS
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
@@ -48,9 +48,9 @@ class SubCategoryDetailListView(ListView):
 
 class SubCategoryCreateView(PermsRequiredMixin, CreateView):
 	model = SubCategory
-	form_class = CategoryModelForm
+	form_class = SubCategoryModelForm
 	template_name = 'blog/models/subcategory/subcategory_create.html'
-	perms = 'blog.add_category'
+	perms = 'blog.add_subcategory'
 
 	def get_success_url(self):
 		return self.object.get_absolute_url()
@@ -63,9 +63,9 @@ class SubCategoryCreateView(PermsRequiredMixin, CreateView):
 
 class SubCategoryUpdateView(PermsRequiredMixin, UpdateView):
 	model = SubCategory
-	form_class = CategoryModelForm
+	form_class = SubCategoryModelForm
 	template_name = 'blog/models/subcategory/subcategory_update.html'
-	perms = 'blog.change_category'
+	perms = 'blog.change_subcategory'
 
 	def get_success_url(self):
 		return self.object.get_absolute_url()
@@ -78,7 +78,7 @@ class SubCategoryUpdateView(PermsRequiredMixin, UpdateView):
 class SubCategoryDeleteView(PermsRequiredMixin, DeleteView):
 	model = SubCategory
 	template_name = 'blog/models/subcategory/subcategory_delete.html'
-	perms = 'blog.delete_category'
+	perms = 'blog.delete_subcategory'
 
 	def get_success_url(self):
 		return SubCategory.get_list_url()

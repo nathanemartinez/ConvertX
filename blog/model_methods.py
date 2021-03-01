@@ -22,6 +22,14 @@ class AbstractMethods:
 	def get_delete_str():
 		return 'Delete'
 
+	@staticmethod
+	def get_name_str():
+		return 'Name'
+
+	@staticmethod
+	def get_description_str():
+		return 'Description'
+
 
 class CategoryMethods(AbstractMethods):
 	def get_absolute_url(self):
@@ -91,25 +99,50 @@ class SubCategoryMethods(AbstractMethods):
 		return 'Subcategories'
 
 
-class AffiliateProgramMethods:
+class AffiliateProgramMethods(AbstractMethods):
+	def get_absolute_url(self):
+		return reverse('blog:affiliate-program-detail', kwargs={'pk': self.pk})
+
+	def get_update_url(self):
+		return reverse('blog:affiliate-program-update', kwargs={'pk': self.pk})
+
+	def get_delete_url(self):
+		return reverse('blog:affiliate-program-delete', kwargs={'pk': self.pk})
+
+	@staticmethod
+	def get_list_url():
+		return reverse('blog:affiliate-program-list')
+
+	@staticmethod
+	def get_create_url():
+		return reverse('blog:affiliate-program-create')
+
 	@staticmethod
 	def get_model_str():
 		return 'Affiliate Program'
 
+	@staticmethod
+	def get_model_strl():
+		return 'affiliate program'
 
-class AffiliateTagMethods:
+	@staticmethod
+	def get_model_strs():
+		return 'Affiliate Programs'
+
+
+class AffiliateTagMethods(AbstractMethods):
 	@staticmethod
 	def get_model_str():
 		return 'Affiliate Tag'
 
 
-class TopMoneyPostMethods:
+class TopMoneyPostMethods(AbstractMethods):
 	@staticmethod
 	def get_model_str():
 		return 'Top Money Post'
 
 
-class TopMoneyProductMethods:
+class TopMoneyProductMethods(AbstractMethods):
 	@staticmethod
 	def get_model_str():
 		return 'Top Money Product'

@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Category
+from blog.models import Category, SubCategory, AffiliateProgram
 from django.forms.widgets import FileInput
 from django.utils.translation import gettext as _
 
@@ -13,4 +13,16 @@ class CategoryModelForm(forms.ModelForm):
 
 	class Meta:
 		model = Category
+		exclude = TIMESTAMP_EXCLUDE
+
+
+class SubCategoryModelForm(forms.ModelForm):
+	class Meta:
+		model = SubCategory
+		exclude = TIMESTAMP_EXCLUDE
+
+
+class AffiliateProgramModelForm(forms.ModelForm):
+	class Meta:
+		model = AffiliateProgram
 		exclude = TIMESTAMP_EXCLUDE
