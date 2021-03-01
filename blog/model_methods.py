@@ -131,9 +131,38 @@ class AffiliateProgramMethods(AbstractMethods):
 
 
 class AffiliateTagMethods(AbstractMethods):
+	def get_absolute_url(self):
+		return reverse('blog:affiliate-tag-detail', kwargs={'pk': self.pk})
+
+	def get_update_url(self):
+		return reverse('blog:affiliate-tag-update', kwargs={'pk': self.pk})
+
+	def get_delete_url(self):
+		return reverse('blog:affiliate-tag-delete', kwargs={'pk': self.pk})
+
+	@staticmethod
+	def get_list_url():
+		return reverse('blog:affiliate-tag-list')
+
+	@staticmethod
+	def get_create_url():
+		return reverse('blog:affiliate-tag-create')
+
 	@staticmethod
 	def get_model_str():
 		return 'Affiliate Tag'
+
+	@staticmethod
+	def get_model_strl():
+		return 'affiliate tag'
+
+	@staticmethod
+	def get_model_strs():
+		return 'Affiliate Tags'
+
+	@staticmethod
+	def get_name_str():
+		return 'Tag'
 
 
 class TopMoneyPostMethods(AbstractMethods):

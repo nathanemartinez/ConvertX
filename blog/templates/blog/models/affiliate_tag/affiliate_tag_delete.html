@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block blog_title %}
+        {% include 'blog/includes/form_titles/form_title_delete.html' %}
+{% endblock %}
+
+{% block blog_content %}
+    <div class="container-fluid form-width">
+        {% include 'blog/includes/form_delete.html' %}
+    </div>
+{% endblock %}

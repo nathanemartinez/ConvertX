@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Category, SubCategory, AffiliateProgram
+from blog.models import Category, SubCategory, AffiliateProgram, AffiliateTag
 from django.forms.widgets import FileInput
 from django.utils.translation import gettext as _
 
@@ -26,3 +26,10 @@ class AffiliateProgramModelForm(forms.ModelForm):
 	class Meta:
 		model = AffiliateProgram
 		exclude = TIMESTAMP_EXCLUDE
+
+
+class AffiliateTagModelForm(forms.ModelForm):
+	class Meta:
+		model = AffiliateTag
+		fields = '__all__'
+

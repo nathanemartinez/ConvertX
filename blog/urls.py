@@ -1,5 +1,5 @@
 from django.urls import path
-from blog.views import general, category, subcategory, affiliate_program
+from blog.views import general, category, subcategory, affiliate_program, affiliate_tag
 
 app_name = 'blog'
 
@@ -27,5 +27,12 @@ urlpatterns = [
 	path('affiliate-program-create/', affiliate_program.AffiliateProgramCreateView.as_view(), name='affiliate-program-create'),
 	path('affiliate-program-update/<int:pk>/', affiliate_program.AffiliateProgramUpdateView.as_view(), name='affiliate-program-update'),
 	path('affiliate-program-delete/<int:pk>/', affiliate_program.AffiliateProgramDeleteView.as_view(), name='affiliate-program-delete'),
+
+	# AFFILIATE TAG VIEWS
+	path('affiliate-tags/', affiliate_tag.AffiliateTagListView.as_view(), name='affiliate-tag-list'),
+	path('affiliate-tag/<int:pk>/', affiliate_tag.AffiliateTagDetailView.as_view(), name='affiliate-tag-detail'),
+	path('affiliate-tag-create/', affiliate_tag.AffiliateTagCreateView.as_view(), name='affiliate-tag-create'),
+	path('affiliate-tag-update/<int:pk>/', affiliate_tag.AffiliateTagUpdateView.as_view(), name='affiliate-tag-update'),
+	path('affiliate-tag-delete/<int:pk>/', affiliate_tag.AffiliateTagDeleteView.as_view(), name='affiliate-tag-delete'),
 
 ]

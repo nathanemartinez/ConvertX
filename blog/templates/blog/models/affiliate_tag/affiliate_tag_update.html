@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% load i18n %}
+
+{% block blog_title %}
+    {% include 'blog/includes/form_titles/form_title_update.html' %}
+{% endblock %}
+
+{% block blog_content %}
+    <div class="container-fluid form-width">
+    <h1 class="text-center form-title">
+        {% include 'blog/includes/form_titles/form_title_update.html' %}
+    </h1>
+        {% include 'blog/includes/form.html' %}
+    </div>
+{% endblock %}
