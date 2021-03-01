@@ -13,7 +13,7 @@ from .utils import check_args
 from .constants import MODEL_ARGS
 from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								TopMoneyPostMethods, TopMoneyProductMethods)
-from blog.querysets import CategoryQuerySet
+from blog.querysets import CategoryQuerySet, SubCategoryQuerySet, TopMoneyPostQuerySet
 # low change the default users to custom user like 'tester'
 # low add "display" field to all models. like category model
 
@@ -70,11 +70,6 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 	def __str__(self):
 		return self.name
 
-	# def get_absolute_url(self):
-	# 	return reverse('blog:category-detail', kwargs={'pk': self.pk})
-	@staticmethod
-	def get_model_str():
-		return 'Category'
 	class Meta:
 		ordering = ['name']
 		verbose_name = _("Category")
@@ -83,7 +78,7 @@ class Category(NameMixin, TimeStampCreatorMixin, ImageMixin, CategoryMethods):
 
 class SubCategory(NameMixin, TimeStampCreatorMixin, SubCategoryMethods):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=_("Category"), null=True)
-	objects = SubCategoryManager()
+	objects = SubCategoryManager.from_queryset(SubCategoryQuerySet)()
 	history = HistoricalRecords()
 
 	def __str__(self):
@@ -161,7 +156,7 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin, AffiliateProgramMethods
 
 
 class TopMoneyPost(PostMixin, TopMoneyPostMethods):
-	objects = TopMoneyPostManager()
+	objects = TopMoneyPostManager.from_queryset(TopMoneyPostQuerySet)()
 	history = HistoricalRecords()
 
 	class Meta:

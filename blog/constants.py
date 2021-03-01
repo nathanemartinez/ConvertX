@@ -23,9 +23,10 @@ MODEL_ARGS = {
 	'INFO_LINK': ('tag', 'product'),
 }
 
-ACCESS_GROUPS = ['superuser', 'admin', 'blog admin']
 ACCESS = {
+	'MANAGE': ['superuser', 'admin', 'blog admin'],
 	'CATEGORY': ['superuser', 'admin', 'blog admin']
 }
+
 PAG_BY = 10
 

@@ -137,7 +137,7 @@ class Command(BaseCommand):
                 subcategory.category = category
                 subcategory.save()
 
-                for j in range(1):
+                for j in range(10):
                     counter3 += 1
                     # Create top money post
                     my_kwargs = self.get_post_mixin_fields()

@@ -1,24 +1,24 @@
 {% extends 'blog/base.html' %}
-{% block blog_title %}{{ category.name }}{% endblock %}
+{% block blog_title %}{{ obj.name }}{% endblock %}
 
 
 {% block blog_content %}
     <div class="container-fluid w-90">
         <div class="my-jumbotron mt-2">
-            <h1>{{ category.name }}</h1>
+            <h1>{{ obj.name }}</h1>
             <hr class="my-3">
-            <p>{{ category.description }}</p>
-            {% if access %}
-                <a class="btn btn-primary" href="{{ category.get_list_url }}">Category List</a>
-                <a class="btn btn-success" href="{{ category.get_update_url }}">Update Category</a>
-                <a class="btn btn-danger" href="{{ category.get_delete_url }}">Delete Category</a>
-            {% endif %}
+            <p>{{ obj.description }}</p>
+            {% include 'blog/includes/admin_buttons_lud.html' %}
         </div>
         {% if object_list %}
             <hr class="black-line">
             {% for subcategory in object_list %}
                 <div class="row">
-                    <h3>{{ subcategory.name }}</h3>
+                    <div>
+                        <h3 class="float-start">{{ subcategory.name }}</h3>
+                        <p class="float-end"><a href="{{ subcategory.get_absolute_url }}">View more >></a></p>
+                    </div>
+{#                    <div class="clearfix"></div>#}
                     {% for post in subcategory.get_posts %}
                         <div class="col-xl-3 col-sm-6">
                             <br>
@@ -36,7 +36,7 @@
             {% endfor %}
             {% include 'components/paginator.html' %}
         {% else %}
-            <p class="h1 text-center">There are no subcategories to display.</p>
+            <p class="h1 text-center">There is nothing to dislay.</p>
         {% endif %}
     </div>
 

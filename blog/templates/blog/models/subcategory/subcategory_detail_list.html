@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% block blog_title %}{{ obj.name }}{% endblock %}
+
+
+{% block blog_content %}
+    <div class="container-fluid w-90">
+        <div class="my-jumbotron mt-2">
+            <h1>{{ obj.name }}</h1>
+            <hr class="my-3">
+            <p>{{ obj.description }}</p>
+            {% include 'blog/includes/admin_buttons_lud.html' %}
+        </div>
+        {% if object_list %}
+            {% for post in object_list %}
+                {% if forloop.first %}
+                    <hr class="black-line mt-4">
+                    <div class="row">
+                {% endif %}
+                    <div class="col-xl-3 col-sm-6">
+                        <br>
+                        <div class="card">
+                            <img src="http://placehold.it/300x200" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% if forloop.counter|divisibleby:4 %}
+                    </div>
+                    <hr class="black-line mt-4">
+                    <div class="row">
+                {% endif %}
+                {% if forloop.last %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% include 'components/paginator.html' %}
+        {% else %}
+            <p class="h1 text-center">There is nothing to dislay.</p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

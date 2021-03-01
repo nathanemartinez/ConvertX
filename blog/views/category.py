@@ -5,7 +5,7 @@ from django.shortcuts import reverse, get_object_or_404, get_list_or_404
 from blog.models import Category, SubCategory, TopMoneyPost
 from blog.managers import CategoryManager
 from blog.model_forms import CategoryModelForm
-from blog.constants import PAG_BY, ACCESS_GROUPS
+from blog.constants import PAG_BY, ACCESS
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from blog.mixins import GroupsRequiredMixin, PermsRequiredMixin
@@ -24,7 +24,8 @@ class CategoryListView(ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['access'] = User.in_groups(ACCESS_GROUPS, self.request.user)
+		context['access'] = User.in_groups(ACCESS['MANAGE'], self.request.user)
+		context['obj'] = Category
 		return context
 
 
@@ -43,8 +44,8 @@ class CategoryDetailListView(ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['category'] = get_object_or_404(Category, pk=self.kwargs['pk'])
-		context['access'] = User.in_groups(ACCESS_GROUPS, self.request.user)
+		context['obj'] = get_object_or_404(Category, pk=self.kwargs['pk'])
+		context['access'] = User.in_groups(ACCESS['MANAGE'], self.request.user)
 		return context
 
 
