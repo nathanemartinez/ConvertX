@@ -166,9 +166,30 @@ class AffiliateTagMethods(AbstractMethods):
 
 
 class TopMoneyPostMethods(AbstractMethods):
+	def get_absolute_url(self):
+		return reverse('blog:top-money-post-detail', kwargs={'pk': self.pk, 'slug': self.slug})
+
+	def get_update_url(self):
+		return reverse('blog:top-money-post-update', kwargs={'pk': self.pk})
+
+	def get_delete_url(self):
+		return reverse('blog:top-money-post-delete', kwargs={'pk': self.pk})
+
+	@staticmethod
+	def get_create_url():
+		return reverse('blog:top-money-post-create')
+
 	@staticmethod
 	def get_model_str():
-		return 'Top Money Post'
+		return 'Top money post'
+
+	@staticmethod
+	def get_model_strl():
+		return 'top money post'
+
+	@staticmethod
+	def get_model_strs():
+		return 'Top money posts'
 
 
 class TopMoneyProductMethods(AbstractMethods):

@@ -21,8 +21,12 @@
                         <div class="card">
                             <img src="http://placehold.it/300x200" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ post.title }}</h5>
+                                <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                {% if access %}
+                                    <a class="btn btn-success" href="{{ post.get_update_url }}">{{ post.get_update_str }}</a>
+                                    <a class="btn btn-danger" href="{{ post.get_delete_url }}">{{ post.get_delete_str }}</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,10 @@
 from django import forms
-from blog.models import Category, SubCategory, AffiliateProgram, AffiliateTag
+from blog.models import Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost
 from django.forms.widgets import FileInput
 from django.utils.translation import gettext as _
 
 TIMESTAMP_EXCLUDE = ['creator', 'updater', 'created_at', 'updated_at']
+top_money_post_exclude = ['creator', 'updater', 'created_at', 'updated_at', 'slug']
 
 
 class CategoryModelForm(forms.ModelForm):
@@ -32,4 +33,10 @@ class AffiliateTagModelForm(forms.ModelForm):
 	class Meta:
 		model = AffiliateTag
 		fields = '__all__'
+
+
+class TopMoneyPostModelForm(forms.ModelForm):
+	class Meta:
+		model = TopMoneyPost
+		exclude = top_money_post_exclude
 

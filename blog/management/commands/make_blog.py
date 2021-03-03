@@ -3,7 +3,8 @@ from django.utils import timezone
 from blog.models import (Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
                          PostMixin)
 from blog.constants import user
-
+from django.utils.text import slugify
+from temp import text
 
 class Command(BaseCommand):
     """
@@ -56,7 +57,6 @@ class Command(BaseCommand):
             'title': 'default',
             'h1': 'h1 taggg',
             'meta': 'metaaa',
-            'conclusion': "<p>I don't know if this is right</p>",
             'year': 2021,
             'status': PostMixin.DRAFT,
         }
@@ -137,15 +137,18 @@ class Command(BaseCommand):
                 subcategory.category = category
                 subcategory.save()
 
-                for j in range(10):
+                for j in range(3):
                     counter3 += 1
                     # Create top money post
                     my_kwargs = self.get_post_mixin_fields()
                     my_kwargs.update(self.get_timestamp_mixin_fields())
                     my_kwargs.update(self.get_image_mixin_fields())
                     post = TopMoneyPost.objects.create_post(**my_kwargs)
-                    post.title = f'Post {counter3}'
+                    post.title = f'Post lawl lawl test {counter3}'
+                    post.slug = slugify(post.title)
                     post.subcategory = subcategory
+                    post.intro = text.intro
+                    post.conclusion = text.conclusion
                     # post.tag.add(tag)
                     post.save()
 
@@ -157,6 +160,7 @@ class Command(BaseCommand):
                         my_kwargs.update(self.get_image_mixin_fields())
                         product = TopMoneyProduct.objects.create_product(**my_kwargs)
                         product.title = f'Post {counter4}'
+                        product.post = post
                         product.save()
 
                         # Create top money link

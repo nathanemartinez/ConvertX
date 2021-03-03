@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from sentry_sdk import capture_message
 from blog.models import Category, TopMoneyPost
 
+
 class HomeView(TemplateView):
     template_name = 'home/home.html'
 

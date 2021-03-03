@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
@@ -118,6 +119,7 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 		(PUBLISHED, 'Published'),
 	)
 	title = models.CharField(verbose_name=_("Title"), max_length=50)
+	slug = models.SlugField(blank=True)
 	h1 = models.CharField(verbose_name=_("H1 Tag"), max_length=50)
 	meta = models.CharField(verbose_name=_("Meta Tag"), max_length=250)
 	subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name=_("Sub Category"), null=True)
@@ -140,6 +142,13 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 		verbose_name = _("Post Mixin")
 		verbose_name_plural = _("Post Mixins")
 
+	def save(self, *args, **kwargs):
+		if not self.id:
+			# Newly created object, so set slug.
+			self.slug = slugify(self.title)
+
+		super().save(*args, **kwargs)
+
 
 class AffiliateProgram(NameMixin, TimeStampCreatorMixin, AffiliateProgramMethods):
 	objects = AffiliateProgramManager()
@@ -155,6 +164,7 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin, AffiliateProgramMethods
 
 
 class TopMoneyPost(PostMixin, TopMoneyPostMethods):
+	# low make sure there are no h1, h2, etc tags in these
 	intro = HTMLField(verbose_name=_("Intro"), null=True)
 	conclusion = HTMLField(verbose_name=_("Conclusion"), null=True)
 	objects = TopMoneyPostManager.from_queryset(TopMoneyPostQuerySet)()
