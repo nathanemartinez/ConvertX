@@ -120,7 +120,6 @@ class PostMixin(TimeStampCreatorMixin, ImageMixin):
 	title = models.CharField(verbose_name=_("Title"), max_length=50)
 	h1 = models.CharField(verbose_name=_("H1 Tag"), max_length=50)
 	meta = models.CharField(verbose_name=_("Meta Tag"), max_length=250)
-	conclusion = HTMLField(verbose_name=_("Conclusion"))
 	subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name=_("Sub Category"), null=True)
 	# tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
 	year = models.IntegerField(
@@ -156,6 +155,8 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin, AffiliateProgramMethods
 
 
 class TopMoneyPost(PostMixin, TopMoneyPostMethods):
+	intro = HTMLField(verbose_name=_("Intro"), null=True)
+	conclusion = HTMLField(verbose_name=_("Conclusion"), null=True)
 	objects = TopMoneyPostManager.from_queryset(TopMoneyPostQuerySet)()
 	history = HistoricalRecords()
 
