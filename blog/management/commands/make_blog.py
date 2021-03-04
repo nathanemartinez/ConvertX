@@ -148,8 +148,7 @@ class Command(BaseCommand):
                     post.slug = slugify(post.title)
                     post.subcategory = subcategory
                     post.intro = text.intro
-                    post.conclusion = text.conclusion
-                    # post.tag.add(tag)
+                    post.outro = text.outro
                     post.save()
 
                     for f in range(2):
