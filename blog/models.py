@@ -166,7 +166,7 @@ class AffiliateProgram(NameMixin, TimeStampCreatorMixin, AffiliateProgramMethods
 class TopMoneyPost(PostMixin, TopMoneyPostMethods):
 	# low make sure there are no h1, h2, etc tags in these
 	intro = HTMLField(verbose_name=_("Intro"), null=True)
-	conclusion = HTMLField(verbose_name=_("Conclusion"), null=True)
+	outro = HTMLField(verbose_name=_("Outro"), null=True)
 	objects = TopMoneyPostManager.from_queryset(TopMoneyPostQuerySet)()
 	history = HistoricalRecords()
 
