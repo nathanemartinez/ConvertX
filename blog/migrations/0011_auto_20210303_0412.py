@@ -13,19 +13,19 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RemoveField(
             model_name='historicalinfopost',
-            name='conclusion',
+            name='outro',
         ),
         migrations.RemoveField(
             model_name='historicalreviewpost',
-            name='conclusion',
+            name='outro',
         ),
         migrations.RemoveField(
             model_name='infopost',
-            name='conclusion',
+            name='outro',
         ),
         migrations.RemoveField(
             model_name='reviewpost',
-            name='conclusion',
+            name='outro',
         ),
         migrations.AddField(
             model_name='historicaltopmoneypost',
@@ -39,12 +39,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='historicaltopmoneypost',
-            name='conclusion',
+            name='outro',
             field=tinymce.models.HTMLField(null=True, verbose_name='Conclusion'),
         ),
         migrations.AlterField(
             model_name='topmoneypost',
-            name='conclusion',
+            name='outro',
             field=tinymce.models.HTMLField(null=True, verbose_name='Conclusion'),
         ),
     ]

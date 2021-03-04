@@ -1,4 +1,6 @@
 from django.shortcuts import reverse
+from blog import models
+from blog.exceptions import MissingChoiceError
 
 
 class AbstractMethods:
@@ -29,6 +31,19 @@ class AbstractMethods:
 	@staticmethod
 	def get_description_str():
 		return 'Description'
+
+
+class PostMixinMethods:
+	@staticmethod
+	def get_choice_display(choice):
+		if choice == models.PostMixin.DRAFT:
+			return 'draft'
+		elif choice == models.PostMixin.HIDDEN:
+			return 'hidden'
+		elif choice == models.PostMixin.PUBLISHED:
+			return 'published'
+		else:
+			raise MissingChoiceError
 
 
 class CategoryMethods(AbstractMethods):
@@ -175,6 +190,13 @@ class TopMoneyPostMethods(AbstractMethods):
 	def get_delete_url(self):
 		return reverse('blog:top-money-post-delete', kwargs={'pk': self.pk})
 
+	# Used in manage
+	def get_list_url(self):
+		return reverse('blog:manage')
+
+	def get_list_detail_url(self):
+		return reverse('blog:top-money-post-list-detail', kwargs={'pk': self.pk})
+
 	@staticmethod
 	def get_create_url():
 		return reverse('blog:top-money-post-create')
@@ -193,7 +215,31 @@ class TopMoneyPostMethods(AbstractMethods):
 
 
 class TopMoneyProductMethods(AbstractMethods):
+	def get_absolute_url(self):
+		return reverse('blog:top-money-product-detail', kwargs={'pk': self.pk})
+
+	def get_update_url(self):
+		return reverse('blog:top-money-product-update', kwargs={'pk': self.pk})
+
+	def get_delete_url(self):
+		return reverse('blog:top-money-product-delete', kwargs={'pk': self.pk})
+
+	def get_post_url(self):
+		return reverse('blog:top-money-post-list-detail', kwargs={'pk': self.post.pk})
+
+	@staticmethod
+	def get_create_url():
+		return reverse('blog:top-money-product-create')
+
 	@staticmethod
 	def get_model_str():
-		return 'Top Money Product'
+		return 'Top money product'
+
+	@staticmethod
+	def get_model_strl():
+		return 'top money product'
+
+	@staticmethod
+	def get_model_strs():
+		return 'Top money products'
 

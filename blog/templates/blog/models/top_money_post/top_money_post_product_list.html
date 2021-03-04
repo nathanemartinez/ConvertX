@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% block blog_title %}{{ object.name }}{% endblock %}
+
+
+{% block blog_content %}
+    <div class="container-fluid w-90">
+        <div class="my-jumbotron mt-2">
+            <h1>{{ object.title }}</h1>
+            <hr class="my-3">
+            <p>Subcategory: {{ object.subcategory }}</p>
+            <p>Status: {{ status }}</p>
+            <a class="btn btn-primary" href="{{ object.get_absolute_url }}">{{ object.get_view_str }} post</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in objects %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></td>
+                            <td>{{ product.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

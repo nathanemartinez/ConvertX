@@ -158,7 +158,7 @@ class Command(BaseCommand):
                         my_kwargs.update(self.get_timestamp_mixin_fields())
                         my_kwargs.update(self.get_image_mixin_fields())
                         product = TopMoneyProduct.objects.create_product(**my_kwargs)
-                        product.title = f'Post {counter4}'
+                        product.title = f'Product {counter4}'
                         product.post = post
                         product.save()
 

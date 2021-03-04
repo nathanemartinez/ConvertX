@@ -13,7 +13,7 @@ from blog.managers import (CategoryManager, SubCategoryManager, AffiliateProgram
 from .utils import check_args
 from .constants import MODEL_ARGS
 from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
-								TopMoneyPostMethods, TopMoneyProductMethods)
+								PostMixinMethods, TopMoneyPostMethods, TopMoneyProductMethods)
 from blog.querysets import CategoryQuerySet, SubCategoryQuerySet, TopMoneyPostQuerySet
 # low change the default users to custom user like 'tester'
 # low add "display" field to all models. like category model
@@ -109,7 +109,7 @@ class SubCategory(NameMixin, TimeStampCreatorMixin, SubCategoryMethods):
 # 		verbose_name_plural = _("Tags")
 
 
-class PostMixin(TimeStampCreatorMixin, ImageMixin):
+class PostMixin(TimeStampCreatorMixin, ImageMixin, PostMixinMethods):
 	DRAFT = 'D'
 	HIDDEN = 'H'
 	PUBLISHED = 'P'

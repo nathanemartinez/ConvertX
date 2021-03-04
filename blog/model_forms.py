@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost
+from blog.models import Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct
 from django.forms.widgets import FileInput
 from django.utils.translation import gettext as _
 
@@ -40,3 +40,8 @@ class TopMoneyPostModelForm(forms.ModelForm):
 		model = TopMoneyPost
 		exclude = top_money_post_exclude
 
+
+class TopMoneyProductModelForm(forms.ModelForm):
+	class Meta:
+		model = TopMoneyProduct
+		exclude = TIMESTAMP_EXCLUDE

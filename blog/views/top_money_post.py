@@ -2,10 +2,23 @@ from django.views.generic import DetailView, UpdateView, CreateView, DeleteView
 from blog.models import TopMoneyPost
 from blog.model_forms import TopMoneyPostModelForm
 from django.contrib.auth import get_user_model
-from blog.mixins import PermsRequiredMixin
-from blog.constants import ACCESS
-from django.shortcuts import reverse
+from blog.mixins import PermsRequiredMixin, GroupsRequiredMixin
+from blog.constants import ACCESS, PAG_BY
+from django.shortcuts import reverse, get_object_or_404
 User = get_user_model()
+
+
+class TopMoneyPostProductListDetailView(GroupsRequiredMixin, DetailView):
+	model = TopMoneyPost
+	template_name = 'blog/models/top_money_post/top_money_post_product_list.html'
+	paginate_by = PAG_BY
+	groups = ACCESS['MANAGE']
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['objects'] = self.object.topmoneyproduct_set.all()
+		context['status'] = TopMoneyPost.get_choice_display(self.object.status)
+		return context
 
 
 class TopMoneyPostDetailView(DetailView):
