@@ -13,7 +13,7 @@ if settings.DEBUG:
 	except OperationalError:
 		pass
 	except ObjectDoesNotExist:
-		warnings.warn("**Superuser does not exist**")
+		warnings.warn("Superuser does not exist")
 	except:
 		raise DefaultUserError
 
