@@ -12,8 +12,5 @@ class User(AbstractUser):
             return True
         return False
 
-class Group(Group, models.Model):
-    content = models.TextField(max_length=100, null=True, blank=True)
-
 # Group.add_to_class('description', models.TextField(max_length=150, null=True, blank=False))
 
