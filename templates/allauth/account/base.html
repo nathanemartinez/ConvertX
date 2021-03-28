@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{% block head_title %}{% endblock %}{% endblock %}
+{% block more_head %}{% block extra_head %}{% endblock %}{% endblock %}
+
+{% block more_body %}
+    {% block body %}
+        {% if messages %}
+            <div>
+                <strong>Messages:</strong>
+                <ul>
+                    {% for message in messages %}
+                        <li>{{message}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="container-fluid form-width">
+            {% block content %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
+{% endblock %}

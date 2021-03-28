@@ -1,0 +1,56 @@
+.my-jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: .3rem;
+}
+
+.my-jumbotron hr {
+    height: .05rem;
+    opacity: 1;
+}
+
+hr.black-line {
+    height: .2rem;
+    opacity: 1;
+}
+
+.form-title {
+    margin-top: 1rem;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.w-65 {
+    width: 65%;
+}
+
+a.no-line {
+    text-decoration: none;
+}
+
+.text-small {
+    font-size: 1rem;
+}
+
+.img-round {
+    border-radius: .5rem;
+}
+
+.price {
+    background-color: #0d6efd;
+    color: white;
+    text-decoration: none;
+    padding: .3rem .7rem;
+    font-size: 1rem;
+    border-radius: .2rem;
+}
+
+.td-nowrap {
+    white-space: nowrap;
+}
+/*td.text-bre {*/
+/*    word-break: break-all;*/
+/*}*/

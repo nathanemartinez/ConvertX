@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% block blog_title %}{{ object.title }}{% endblock %}
+
+
+{% block blog_content %}
+	<div class="container-fluid w-65 mt-5">
+		<div class="row">
+			<div class="col-8">
+				{% include 'blog/models/top_money_post/includes/intro.html' %}
+                <img src="{{ object.file.url }}" class="img-fluid img-round mb-3" alt="{{ object.alt }}">
+                {{ object.intro|safe }}
+{#				{% include 'blog/models/top_money_post/includes/table_of_contents.html' %}#}
+				<br>
+				{% include 'blog/models/top_money_post/includes/product_table.html' %}
+                {{ object.outro|safe }}
+			</div>
+			{% include 'blog/models/top_money_post/includes/sidebar.html' %}
+		</div>
+	</div>
+{% endblock %}

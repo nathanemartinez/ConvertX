@@ -1,0 +1,26 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Product Listing</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in object_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    {% if product.topmoneylink.get_follow_choice %}
+                        <td><a href="{{ product.get_link }}">{{ product.title }}</a></td>
+                    {% else %}
+                        <td><a href="{{ product.get_link }}" rel="{{ product.topmoneylink.NO_FOLLOW_TEXT }}">{{ product.title }}</a></td>
+                    {% endif %}
+                    <td>{{ product.price }}</td>
+                    <td class="text-center td-nowrap"><a href="{{ product.get_link }}" class="btn btn-primary">Check Price</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

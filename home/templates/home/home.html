@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block contents %}
+    <div class="container">
+        <h1>{{ user }}</h1>
+        {% include 'home/includes/categories.html' %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                {% include 'home/includes/posts.html' %}
+            </div>
+            <div class="col-md-3">
+                {% include 'home/includes/search.html' %}
+                {% include 'home/includes/tags.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

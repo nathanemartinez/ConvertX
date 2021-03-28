@@ -1,21 +1,50 @@
-"""convertx URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+https://docs.djangoproject.com/en/3.1/topics/http/urls/
+"""
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+from django.contrib import admin
+from django.conf import settings
+from django.urls import path, include
+from dotenv import load_dotenv
+from convertx.constants import DOTENV_PATH
+from django.conf.urls.static import static
+import os
+
+load_dotenv(dotenv_path=DOTENV_PATH)
+
+urlpatterns = []
+
+ADMIN_URL = os.getenv('ADMIN_URL')
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns += [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#     ]
+
+# Package urls
+urlpatterns += [
+    path(f'{ADMIN_URL}/', admin.site.urls),  # normal admin
+    # low get rid of defender url - it just shows a detail view of defender
+    path(f'{ADMIN_URL}/defender/', include('defender.urls')),  # defender admin
+    path('accounts/', include('allauth.urls')),
+    path('tinymce/', include('tinymce.urls')),
+
 ]
+
+# App urls
+urlpatterns += [
+    path('', include('home.urls')),
+    path('', include('users.urls')),
+    path('blog/', include('blog.urls')),
+]
+
+
+handler400 = 'home.views.error_400'
+handler403 = 'home.views.error_403'
+handler404 = 'home.views.error_404'
+handler500 = 'home.views.error_500'
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -1,0 +1,16 @@
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Table of Contents
+        </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                {% for product in object_list %}
+                    <p class="m-1 text-small"><a href="#">{{ forloop.counter }}. {{ product.title }}</a></p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

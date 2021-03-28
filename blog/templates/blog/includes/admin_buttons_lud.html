@@ -1,0 +1,5 @@
+{% if access %}
+    <a class="btn btn-primary" href="{{ object.get_list_url }}">{{ object.get_view_str }} {{ object.get_model_strs }}</a>
+    <a class="btn btn-success" href="{{ object.get_update_url }}">{{ object.get_update_str }} {{ object.get_model_str }}</a>
+    <a class="btn btn-danger" href="{{ object.get_delete_url }}">{{ object.get_delete_str }} {{ object.get_model_str }}</a>
+{% endif %}

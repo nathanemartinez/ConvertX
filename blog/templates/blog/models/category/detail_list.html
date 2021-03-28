@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+{% block blog_title %}{{ object.name }}{% endblock %}
+
+
+{% block blog_content %}
+    <div class="container-fluid w-90">
+        <div class="my-jumbotron mt-2">
+            <h1>{{ object.name }}</h1>
+            <hr class="my-3">
+            <p>{{ object.description }}</p>
+            {% if access %}
+                <a class="btn btn-primary" href="{{ object.get_list_url }}">{{ object.get_view_str }} {{ object.get_object_name }}</a>
+                <a class="btn btn-success" href="{{ object.get_update_url }}">{{ object.get_update_str }} {{ object.get_object_name }}</a>
+                <a class="btn btn-danger" href="{{ object.get_delete_url }}">{{ object.get_delete_str }} {{ object.get_object_name }}</a>
+            {% endif %}
+        </div>
+        {% if object_list %}
+            <hr class="black-line">
+            {% for subcategory in object_list %}
+                <div class="row">
+                    <div>
+                        <h3 class="float-start"><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></h3>
+                        <p class="float-end fw-bold"><a class="no-line" href="{{ subcategory.get_absolute_url }}">View more >></a></p>
+                    </div>
+                    <div class="clearfix"></div>
+                    {% for post in subcategory.display %}
+                        <div class="col-xl-3 col-sm-6">
+                            <br>
+                            <div class="card">
+                                <img src="http://placehold.it/300x200" class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    {% if access %}
+                                        <a class="btn btn-success" href="{{ post.get_update_url }}">{{ post.get_update_str }}</a>
+                                        <a class="btn btn-danger" href="{{ post.get_delete_url }}">{{ post.get_delete_str }}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <hr class="black-line mt-4">
+                </div>
+            {% endfor %}
+            {% include 'components/paginator.html' %}
+        {% else %}
+            {% include 'blog/includes/nothing.html' %}
+        {% endif %}
+    </div>
+{% endblock %}

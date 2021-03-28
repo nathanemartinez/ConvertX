@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+
+
+<br>
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="text-center">
+        <button class="btn btn-danger" type="submit">Delete</button>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+

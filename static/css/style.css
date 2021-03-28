@@ -1,0 +1,17 @@
+body {
+    /* To prevent navbar from overlapping content, Go to Google Dev Tools and check the padding */
+    padding-top: 84.4px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.2rem;
+}
+
+.form-width {
+    width: 90%;
+}
+
+.breadcrumb {
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    padding: .8rem;
+}
+

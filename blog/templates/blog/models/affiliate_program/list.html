@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% block blog_title %}{{ obj.get_model_str }} {{ obj.get_list_str }}{% endblock %}
+
+{% block blog_content %}
+    <div class="container">
+        <div class="my-jumbotron mt-2">
+            <h1>{{ obj.get_model_strs }}</h1>
+            <hr class="my-3">
+            <p>{{ obj.get_model_strs }} currently in use.</p>
+        </div>
+        <hr class="black-line">
+        {% if object_list %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">{{ obj.get_name_str }}</th>
+                            <th scope="col">{{ obj.get_description_str }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for program in object_list %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td><a href="{{ program.get_absolute_url }}">{{ program.name }}</a></td>
+                                <td>{{ program.description }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <hr class="black-line">
+        {% else %}
+            {% include 'blog/includes/nothing.html' %}
+        {% endif %}
+        {% include 'components/paginator.html' %}
+    </div>
+{% endblock %}
