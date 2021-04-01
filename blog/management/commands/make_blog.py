@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from blog.models import (Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
                          PostMixin)
-from blog.constants import user
+from convertx.constants import superuser
 from django.utils.text import slugify
 from temp import text
 
@@ -13,7 +13,7 @@ class Command(BaseCommand):
     """
     help = 'Creates a dummy blog'
     now = timezone.now()
-    u = user
+    u = superuser
 
     # def add_arguments(self, parser):
     #     parser.add_argument('total', type=int, help='How many blog sets to create')

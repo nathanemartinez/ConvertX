@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from blog.models import Category, AffiliateProgram
-from blog.constants import user
+from convertx.constants import superuser
 from django.utils import timezone
 
 class Command(BaseCommand):
@@ -20,8 +20,8 @@ class Command(BaseCommand):
 				options = {
 					'name': f'Category {i}',
 					'description': f'desc {i}',
-					'creator': user,
-					'updater': user,
+					'creator': superuser,
+					'updater': superuser,
 					'created_at': now,
 					'updated_at': now,
 					'alt': 'hello',
@@ -36,8 +36,8 @@ class Command(BaseCommand):
 				options = {
 					'name': f'Affiliate Program {i} - New',
 					'description': f'desc',
-					'creator': user,
-					'updater': user,
+					'creator': superuser,
+					'updater': superuser,
 					'created_at': now,
 					'updated_at': now,
 				}
