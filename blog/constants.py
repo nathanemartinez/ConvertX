@@ -1,21 +1,9 @@
 from django.contrib.auth import get_user_model
-from .exceptions import DefaultUserDoesNotExist, DefaultUserError
 from convertx.constants import SUPERUSER_USERNAME
 from django.conf import settings
 from django.db.utils import OperationalError
 from django.core.exceptions import ObjectDoesNotExist
 import warnings
-
-if settings.DEBUG:
-	try:
-		User = get_user_model()
-		user = User.objects.get(is_superuser=True, username=SUPERUSER_USERNAME)
-	except OperationalError:
-		pass
-	except ObjectDoesNotExist:
-		warnings.warn("Superuser does not exist")
-	except:
-		raise DefaultUserError
 
 # low make this more DRY by using model fields
 # Ex: https://stackoverflow.com/questions/38367226/django-get-all-required-fields
