@@ -13,3 +13,5 @@ SUPERUSER_PASSWORD = os.getenv('SUPERUSER_PASSWORD')
 
 
 superuser = user
+
+GROUPS = ['superuser', 'admin', 'blog admin']
