@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from blog.models import (Category, SubCategory, AffiliateProgram, AffiliateTag, TopMoneyPost, TopMoneyProduct, TopMoneyLink,
                          PostMixin)
-from convertx.constants import superuser
+from users.constants import superuser
 from django.utils.text import slugify
 from temp import text
 

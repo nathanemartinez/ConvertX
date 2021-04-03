@@ -1,13 +1,15 @@
 from django.core.management.base import BaseCommand
 from blog.models import Category, AffiliateProgram
-from convertx.constants import superuser
+from users.constants import superuser
 from django.utils import timezone
+
 
 class Command(BaseCommand):
 	"""
 	Make multiple objects.
 	"""
 	help = "Creates multiple objects"
+	u = superuser
 
 	def add_arguments(self, parser):
 		parser.add_argument("-c", "--category", type=int, help='')  # -d = command line, --deplay = in handle() method
@@ -20,8 +22,8 @@ class Command(BaseCommand):
 				options = {
 					'name': f'Category {i}',
 					'description': f'desc {i}',
-					'creator': superuser,
-					'updater': superuser,
+					'creator': self.u,
+					'updater': self.u,
 					'created_at': now,
 					'updated_at': now,
 					'alt': 'hello',
@@ -36,8 +38,8 @@ class Command(BaseCommand):
 				options = {
 					'name': f'Affiliate Program {i} - New',
 					'description': f'desc',
-					'creator': superuser,
-					'updater': superuser,
+					'creator': self.u,
+					'updater': self.u,
 					'created_at': now,
 					'updated_at': now,
 				}
