@@ -6,5 +6,9 @@ class SuperuserError(Exception):
 	pass
 
 
-class RequiredGroupDoNotExist(Exception):
+class RequiredGroupsDoNotExist(Exception):
+	pass
+
+
+class RequiredGroupsError(Exception):
 	pass
