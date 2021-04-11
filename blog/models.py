@@ -51,7 +51,7 @@ class NameMixin(models.Model):
 class ImageMixin(models.Model):
 	alt = models.CharField(verbose_name=_("Alt Tag"), max_length=50, null=True)
 	caption = models.CharField(verbose_name=_("Caption"), max_length=100, null=True)
-	file = models.ImageField(verbose_name=_("File"), upload_to=rename_path, max_length=50,
+	file = models.ImageField(verbose_name=_("File"), upload_to=rename_path, max_length=70,
 							 validators=[file_size, invalid_characters, pil_verify_image])
 
 	def __str__(self):
