@@ -9,9 +9,10 @@ class CategoryModelForm(forms.ModelForm):
 	# file = forms.FileField(widget=FileInput)
 	# file = forms.ImageField(label=_('File'), required=True, error_messages={'invalid': _("Image files only")}, widget=FileInput)
 	# remove_photo = forms.BooleanField(required=False)
-
+	
 	class Meta:
 		model = Category
+		# high: security issue, do not use exclude
 		exclude = TIMESTAMP_EXCLUDE
 
 
