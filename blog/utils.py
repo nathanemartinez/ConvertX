@@ -14,9 +14,10 @@ def check_args(required, **kwargs):
 
 
 def rename_path(instance, filename):
-	upload_to = 'blog/images/'
+	upload_to = f'blog/images/{instance.creator.key}/'
 	ext = filename.split('.')[-1]
-	filename = f'{uuid4().hex}.{ext}'
+	x = uuid4()
+	filename = f'{str(x)[:13]}.{ext}'
 	return os.path.join(upload_to, filename)
 
 
