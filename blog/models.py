@@ -5,13 +5,12 @@ from django.utils.translation import gettext as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
-from django.shortcuts import reverse
+from blog.validators import file_size, invalid_characters, pil_verify_image
 from blog.managers import (CategoryManager, SubCategoryManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
 						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
 						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
 						   )
-from .utils import check_args
-from .constants import MODEL_ARGS
+from blog.utils import rename_path, resize_image
 from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								PostMixinMethods, TopMoneyPostMethods, TopMoneyProductMethods)
 from blog.querysets import CategoryQuerySet, SubCategoryQuerySet, AffiliateProgramQuerySet, TopMoneyPostQuerySet
@@ -52,10 +51,16 @@ class NameMixin(models.Model):
 class ImageMixin(models.Model):
 	alt = models.CharField(verbose_name=_("Alt Tag"), max_length=50, null=True)
 	caption = models.CharField(verbose_name=_("Caption"), max_length=100, null=True)
-	file = models.ImageField(verbose_name=_("File"), upload_to='blog/images/')
+	file = models.ImageField(verbose_name=_("File"), upload_to=rename_path, max_length=50,
+							 validators=[file_size, invalid_characters, pil_verify_image])
 
 	def __str__(self):
 		return self.alt
+
+	def save(self, *args, **kwargs):
+		super(ImageMixin, self).save()
+		if self.file:
+			resize_image(self.file.path)
 
 	class Meta:
 		abstract = True
