@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, Permission
 from simple_history.models import HistoricalRecords
 from users.managers import AssociationManager
 from django.utils.translation import gettext as _
+from uuid import uuid4
 
 
 class Association(models.Model):
@@ -28,6 +29,7 @@ class User(AbstractUser):
         verbose_name=_('Groups'),
         blank=True,
     )
+    key = models.UUIDField(verbose_name=_('Key'), default=uuid4)
     history = HistoricalRecords()
 
     @staticmethod
