@@ -5,16 +5,6 @@ from users.managers import AssociationManager
 from django.utils.translation import gettext as _
 
 
-class User(AbstractUser):
-    history = HistoricalRecords()
-
-    @staticmethod
-    def in_groups(groups, user):
-        if user.groups.filter(name__in=groups).exists():
-            return True
-        return False
-
-
 class Association(models.Model):
     name = models.CharField(_('name'), max_length=150, unique=True)
     permissions = models.ManyToManyField(
@@ -30,3 +20,20 @@ class Association(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class User(AbstractUser):
+    groups = models.ManyToManyField(
+        Association,
+        verbose_name=_('Groups'),
+        blank=True,
+    )
+    history = HistoricalRecords()
+
+    @staticmethod
+    def in_groups(groups, user):
+        if user.groups.filter(name__in=groups).exists():
+            return True
+        return False
+
+
