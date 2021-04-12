@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
-from blog.validators import file_size, invalid_characters, pil_verify_image, resize_image
+from blog.validators import file_size, invalid_characters, verify_image, resize_image
 from blog.managers import (CategoryManager, SubCategoryManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
 						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
 						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
@@ -56,7 +56,7 @@ class ImageMixin(models.Model):
 	caption = models.CharField(verbose_name=_("Caption"), max_length=100, null=True)
 	# low add date at the end of the file
 	file = models.ImageField(verbose_name=_("File"), upload_to=rename_path, max_length=80,
-							 validators=[file_size, invalid_characters, pil_verify_image, resize_image])
+							 validators=[file_size, invalid_characters, verify_image, resize_image])
 
 	def __str__(self):
 		return self.alt

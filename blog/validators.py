@@ -16,7 +16,7 @@ def invalid_characters(value):
 		raise ValidationError(_('Your file contains invalid characters (. , /)'))
 
 
-def pil_verify_image(value):
+def verify_image(value):
 	try:
 		with Image.open(value) as img:
 			img.verify()
