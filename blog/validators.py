@@ -10,8 +10,10 @@ def file_size(value):
 
 
 def invalid_characters(value):
-	if value.path.count('.') > 1:
-		raise ValidationError(_('Multiple "." dots in file.'))
+	dots = value.path.count('.') > 1
+	slashes = str(value).count('/') > 1
+	if dots or slashes:
+		raise ValidationError(_('Your file contains invalid characters (. , /)'))
 
 
 def pil_verify_image(value):
@@ -19,3 +21,24 @@ def pil_verify_image(value):
 		Image.open(value).verify()
 	except:
 		raise ValidationError(_('Invalid Image'))
+
+
+# can't comment this out due to it being a dependency in migration file
+def image_size(value):
+	with Image.open(value) as img:
+		if img.height < 300 or img.width < 700:
+			raise ValidationError(_('Image too small. Must be at least 700x300.'))
+
+
+# low this code doesn't work
+def resize_image(value):
+	try:
+		with Image.open(value) as img:
+			if img.height > 300 or img.width > 700:
+				new_img = (300, 700)
+				img.thumbnail(new_img)
+				img.save(value)
+	except:
+		raise ValidationError("Image is invalid.")
+
+
