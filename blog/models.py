@@ -5,15 +5,18 @@ from django.utils.translation import gettext as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from tinymce.models import HTMLField
 from simple_history.models import HistoricalRecords
-from blog.validators import file_size, invalid_characters, pil_verify_image
+from blog.validators import file_size, invalid_characters, pil_verify_image, resize_image
 from blog.managers import (CategoryManager, SubCategoryManager, AffiliateProgramManager, TopMoneyPostManager, ReviewPostManager,
 						   InfoPostManager, TopMoneyProductManager, ReviewProductManager, InfoProductManager,
 						   AffiliateTagManager, TopMoneyLinkManager, ReviewLinkManager, InfoLinkManager,
 						   )
-from blog.utils import rename_path, resize_image
+from blog.utils import rename_path
 from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								PostMixinMethods, TopMoneyPostMethods, TopMoneyProductMethods)
 from blog.querysets import CategoryQuerySet, SubCategoryQuerySet, AffiliateProgramQuerySet, TopMoneyPostQuerySet
+from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404
+import os
 # low change the default users to custom user like 'tester'
 # low add "display" field to all models. like category model
 
@@ -51,16 +54,24 @@ class NameMixin(models.Model):
 class ImageMixin(models.Model):
 	alt = models.CharField(verbose_name=_("Alt Tag"), max_length=50, null=True)
 	caption = models.CharField(verbose_name=_("Caption"), max_length=100, null=True)
-	file = models.ImageField(verbose_name=_("File"), upload_to=rename_path, max_length=70,
-							 validators=[file_size, invalid_characters, pil_verify_image])
+	# low add date at the end of the file
+	file = models.ImageField(verbose_name=_("File"), upload_to=rename_path, max_length=80,
+							 validators=[file_size, invalid_characters, pil_verify_image, resize_image])
 
 	def __str__(self):
 		return self.alt
 
-	def save(self, *args, **kwargs):
-		super(ImageMixin, self).save()
-		if self.file:
-			resize_image(self.file.path)
+	# def save(self, *args, **kwargs):
+	# 	super(ImageMixin, self).save()
+	# 	if self.file:
+	# 		# try:
+	# 		# 	resize_image(self.file.path)
+	# 		# if file cannot be resized it is invalid
+	# 		# except:
+	# 		os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))  # delete file
+	# 		self.file = None
+	# 		self.save()
+	# 		raise ValidationError("Not a valid image.")
 
 	class Meta:
 		abstract = True
