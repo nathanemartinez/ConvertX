@@ -1,4 +1,5 @@
 from .exceptions import MissingArgumentsError
+from django.core.exceptions import ValidationError
 from PIL import Image
 from uuid import uuid4
 import os
@@ -21,10 +22,3 @@ def rename_path(instance, filename):
 	return os.path.join(upload_to, filename)
 
 
-def resize_image(path):
-	img = Image.open(path)
-
-	if img.height > 300 or img.width > 700:
-		new_img = (300, 700)
-		img.thumbnail(new_img)
-		img.save(path)
