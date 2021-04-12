@@ -18,7 +18,8 @@ def invalid_characters(value):
 
 def pil_verify_image(value):
 	try:
-		Image.open(value).verify()
+		with Image.open(value) as img:
+			img.verify()
 	except:
 		raise ValidationError(_('Invalid Image'))
 
@@ -40,5 +41,3 @@ def resize_image(value):
 				img.save(value)
 	except:
 		raise ValidationError("Image is invalid.")
-
-
