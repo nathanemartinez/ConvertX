@@ -147,5 +147,6 @@ STATICFILES_DIRS = [STATIC_PATH, ALLAUTH_DIR]  # ***You might not want to includ
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MY_MAX_FILE_SIZE = 5242880  # 5MB
+MY_MEDIA_FILE_TYPES = ['PNG', 'JPG', 'JPEG']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
