@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django.conf import settings
 from PIL import Image
+import magic
 
 
 def file_size(value):
@@ -20,6 +21,9 @@ def verify_image(value):
 	try:
 		with Image.open(value) as img:
 			img.verify()
+		with magic.from_file(value) as ext:
+			if settings.MY_MEDIA_FILE_TYPES not in ext:
+				raise ValidationError(_('Invalid Image'))
 	except:
 		raise ValidationError(_('Invalid Image'))
 
