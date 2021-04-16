@@ -23,6 +23,7 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.redirects',
     'django.contrib.staticfiles',
     'django.contrib.sites',
 ]
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
     'defender.middleware.FailedLoginMiddleware',
 
