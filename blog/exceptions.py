@@ -1,3 +1,7 @@
+class FileWarning(Exception):
+	pass
+
+
 class MissingArgumentsError(Exception):
 	pass
 
