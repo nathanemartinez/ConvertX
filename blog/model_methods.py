@@ -51,7 +51,7 @@ class PostMixinMethods:
 		elif choice == models.PostMixin.PUBLISHED:
 			return 'published'
 		else:
-			raise MissingChoiceError
+			raise MissingChoiceError()
 
 
 class CategoryMethods(AbstractMethods):
