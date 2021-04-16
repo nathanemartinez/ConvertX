@@ -14,9 +14,8 @@ from blog.utils import rename_path
 from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								PostMixinMethods, TopMoneyPostMethods, TopMoneyProductMethods)
 from blog.querysets import CategoryQuerySet, SubCategoryQuerySet, AffiliateProgramQuerySet, TopMoneyPostQuerySet
-from django.core.exceptions import ValidationError
-from django.shortcuts import get_object_or_404
-import os
+from blog.utils import extensions_checker
+
 # low change the default users to custom user like 'tester'
 # low add "display" field to all models. like category model
 
@@ -61,17 +60,9 @@ class ImageMixin(models.Model):
 	def __str__(self):
 		return self.alt
 
-	# def save(self, *args, **kwargs):
-	# 	super(ImageMixin, self).save()
-	# 	if self.file:
-	# 		# try:
-	# 		# 	resize_image(self.file.path)
-	# 		# if file cannot be resized it is invalid
-	# 		# except:
-	# 		os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))  # delete file
-	# 		self.file = None
-	# 		self.save()
-	# 		raise ValidationError("Not a valid image.")
+	def save(self, *args, **kwargs):
+		super(ImageMixin, self).save()
+		extensions_checker(self.file.path)
 
 	class Meta:
 		abstract = True
