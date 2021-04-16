@@ -30,18 +30,19 @@ def verify_image(value):
 
 # can't comment this out due to it being a dependency in migration file
 def image_size(value):
-	with Image.open(value) as img:
-		if img.height < 300 or img.width < 700:
-			raise ValidationError(_('Image too small. Must be at least 700x300.'))
-
+	# with Image.open(value) as img:
+	# 	if img.height < 300 or img.width < 700:
+	# 		raise ValidationError(_('Image too small. Must be at least 700x300.'))
+	pass
 
 # low this code doesn't work
 def resize_image(value):
-	try:
-		with Image.open(value) as img:
-			if img.height > 300 or img.width > 700:
-				new_img = (300, 700)
-				img.thumbnail(new_img)
-				img.save(value)
-	except:
-		raise ValidationError("Image is invalid.")
+	# try:
+	# 	with Image.open(value) as img:
+	# 		if img.height > 300 or img.width > 700:
+	# 			new_img = (300, 700)
+	# 			img.thumbnail(new_img)
+	# 			img.save(value)
+	# except:
+	# 	raise ValidationError("Image is invalid.")
+	pass
