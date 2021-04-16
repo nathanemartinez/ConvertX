@@ -3,7 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group, Permission
 from users.models import User, Association
 from django.contrib.sites.models import Site
-from allauth.socialaccount.models import SocialAccount, SocialToken, SocialApp
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Permission)
