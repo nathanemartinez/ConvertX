@@ -3,7 +3,7 @@ from blog.exceptions import FileWarning
 from django.conf import settings
 from uuid import uuid4
 import os
-import magic
+from magic import magic
 
 
 def check_args(required, **kwargs):
