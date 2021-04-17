@@ -26,7 +26,7 @@ class Association(models.Model):
 class User(AbstractUser):
     association = models.ManyToManyField(
         Association,
-        verbose_name=_('Groups'),
+        verbose_name=_('Associations'),
         blank=True,
     )
     key = models.UUIDField(verbose_name=_('Key'), default=uuid4)
