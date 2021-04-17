@@ -14,7 +14,7 @@ from blog.utils import rename_path
 from blog.model_methods import (CategoryMethods, SubCategoryMethods, AffiliateProgramMethods, AffiliateTagMethods, \
 								PostMixinMethods, TopMoneyPostMethods, TopMoneyProductMethods)
 from blog.querysets import CategoryQuerySet, SubCategoryQuerySet, AffiliateProgramQuerySet, TopMoneyPostQuerySet
-from blog.utils import extensions_checker
+
 
 # low change the default users to custom user like 'tester'
 # low add "display" field to all models. like category model
