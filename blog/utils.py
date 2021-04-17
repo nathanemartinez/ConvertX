@@ -3,7 +3,6 @@ from blog.exceptions import FileWarning
 from django.conf import settings
 from uuid import uuid4
 import os
-from magic import magic
 
 
 def check_args(required, **kwargs):
@@ -23,10 +22,10 @@ def rename_path(instance, filename):
 	return os.path.join(upload_to, filename)
 
 
-def extensions_checker(file_path):
-	extension = magic.from_file(file_path, mime=True).split('/')[1].upper()
-	if extension not in settings.MY_MEDIA_FILE_TYPES:
-		os.remove(os.path.join(settings.MEDIA_ROOT, file_path))  # delete file
-		raise FileWarning()
+# def extensions_checker(file_path):
+# 	extension = magic.from_file(file_path, mime=True).split('/')[1].upper()
+# 	if extension not in settings.MY_MEDIA_FILE_TYPES:
+# 		os.remove(os.path.join(settings.MEDIA_ROOT, file_path))  # delete file
+# 		raise FileWarning()
 
 
