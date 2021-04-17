@@ -1,14 +1,14 @@
-{% extends 'blog/base.html' %}
+{% block bases %}{% endblock %}
 
 {% block blog_title %}
-    {% include 'blog/includes/form_titles/update.html' %}
+    {% include 'includes/form_titles/update.html' %}
 {% endblock %}
 
 {% block blog_content %}
     <div class="container-fluid form-width">
         <h1 class="text-center form-title">
-            {% include 'blog/includes/form_titles/update.html' %}
+            {% include 'includes/form_titles/update.html' %}
         </h1>
-        {% include 'blog/includes/forms/form.html' %}
+        {% include 'includes/forms/form.html' %}
     </div>
 {% endblock %}
