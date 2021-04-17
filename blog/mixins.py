@@ -21,7 +21,7 @@ class GroupsRequiredMixin:
     groups = None
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.groups.filter(name__in=self.groups).exists():
+        if request.user.in_groups(self.groups, self.request.user):
             return super().dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
