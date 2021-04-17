@@ -60,9 +60,9 @@ class ImageMixin(models.Model):
 	def __str__(self):
 		return self.alt
 
-	def save(self, *args, **kwargs):
-		super(ImageMixin, self).save()
-		extensions_checker(self.file.path)
+	# def save(self, *args, **kwargs):
+	# 	super(ImageMixin, self).save()
+	# 	extensions_checker(self.file.path)
 
 	class Meta:
 		abstract = True
