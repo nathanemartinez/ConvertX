@@ -55,7 +55,7 @@ AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_FILE_OVERWRITE = bool(os.getenv('AWS_S3_FILE_OVERWRITE'))
 
 # https://docs.djangoproject.com/en/3.1/topics/security/
-# SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
@@ -64,7 +64,7 @@ DEFAULT_FROM_EMAIL = os.getenv('ADMIN_EMAIL')
 SERVER_EMAIL = os.getenv('ADMIN_EMAIL')
 
 # allauth
-# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 # defender
 DEFENDER_COOLOFF_TIME = 300
