@@ -6,10 +6,10 @@ from users.forms import UserModelForm
 User = get_user_model()
 
 
-# class CategoryUpdateView(UpdateView):
+# class UserUpdateView(UpdateView):
 # 	model = User
 # 	form_class = UserModelForm
-	# template_name =
+# 	template_name =
 
 
 def lockout(request):
