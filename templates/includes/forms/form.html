@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+
+{% if images %}
+    <form method="post" enctype="multipart/form-data">
+{% else %}
+<form method="post">
+{% endif %}
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if tmp_post_create or tmp_post_update %}
+        {{ form.media }}
+    {% endif %}
+    <br>
+    <button class="btn btn-primary" type="submit" value="Save">Submit</button>
+</form>
+<br>
+<br>
