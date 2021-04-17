@@ -24,7 +24,7 @@ class Association(models.Model):
 
 
 class User(AbstractUser):
-    groups = models.ManyToManyField(
+    association = models.ManyToManyField(
         Association,
         verbose_name=_('Groups'),
         blank=True,
@@ -34,7 +34,7 @@ class User(AbstractUser):
 
     @staticmethod
     def in_groups(groups, user):
-        if user.groups.filter(name__in=groups).exists():
+        if user.association.filter(name__in=groups).exists():
             return True
         return False
 
