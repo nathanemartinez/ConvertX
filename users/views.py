@@ -11,6 +11,9 @@ class UserUpdateView(UserPassesTestMixin, UpdateView):
 	model = User
 	form_class = UserModelForm
 	template_name = 'users/user/update.html'
+	extra_context = {
+		'obj': User
+	}
 
 	def get_success_url(self):
 		return reverse('home:home')
