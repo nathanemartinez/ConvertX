@@ -7,3 +7,4 @@ User = get_user_model()
 class UserModelForm(forms.ModelForm):
 	class Meta:
 		model = User
+		fields = ('association',)
