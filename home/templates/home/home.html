@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% block contents %}
     <div class="container">
-        <h1>{{ user }}</h1>
+        <h1>User: {{ user }}</h1>
+        <h1>Groups:
+        {% for group in user.association.all %}
+            {{ group }},
+        {% endfor %}
+        </h1>
+
         {% include 'home/includes/categories.html' %}
     </div>
     <div class="container">
