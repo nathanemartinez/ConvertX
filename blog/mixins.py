@@ -21,7 +21,10 @@ class GroupsRequiredMixin:
     groups = None
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.in_groups(self.groups, self.request.user):
-            return super().dispatch(request, *args, **kwargs)
+        if request.user.is_authenticated:
+            if request.user.in_groups(self.groups, request.user):
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                raise PermissionDenied
         else:
             raise PermissionDenied
