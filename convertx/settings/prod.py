@@ -23,7 +23,7 @@ import os
 load_dotenv(dotenv_path=DOTENV_PATH)
 
 DEBUG = False
-ALLOWED_HOSTS = [os.environ.get('HEROKUAPP_HOST'), os.environ.get('DOMAIN_HOST')] # low maybe add: , os.environ.get('DOMAIN_HOST_WWW')
+ALLOWED_HOSTS = [os.environ.get('DOMAIN_HOST')]  # low maybe add: , os.environ.get('DOMAIN_HOST_WWW')
 
 # EXTRA_APPS = [
 #     'storages',
