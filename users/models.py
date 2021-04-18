@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, Permission
 from simple_history.models import HistoricalRecords
 from users.managers import AssociationManager
 from django.utils.translation import gettext as _
+from users.model_methods import UserMethods
 from uuid import uuid4
 
 
@@ -23,7 +24,7 @@ class Association(models.Model):
         return self.name
 
 
-class User(AbstractUser):
+class User(AbstractUser, UserMethods):
     association = models.ManyToManyField(
         Association,
         verbose_name=_('Associations'),
