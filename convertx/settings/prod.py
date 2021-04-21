@@ -31,6 +31,11 @@ ALLOWED_HOSTS = [os.getenv('DOMAIN_HOST'), os.getenv('DOMAIN_HOST_WWW')]
 
 # INSTALLED_APPS += EXTRA_APPS
 
+MIDDLEWARE += [
+    'convertx.middleware.RedirectToNonWwwMiddleware',
+
+]
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
