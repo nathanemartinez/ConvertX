@@ -2,7 +2,7 @@ from django.http import HttpResponsePermanentRedirect
 from convertx.constants import DOMAIN_NAME_WWW, DOMAIN_NAME
 
 
-class WWWRedirectMiddleware:
+class RedirectToNonWwwMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
