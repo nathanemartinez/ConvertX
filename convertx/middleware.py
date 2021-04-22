@@ -1,5 +1,5 @@
 from django.http import HttpResponsePermanentRedirect
-from convertx.constants import DOMAIN_NAME_WWW, DOMAIN_NAME_HTTPS
+from convertx.constants import DOMAIN_NAME_WWW, DOMAIN_NAME_HTTPS, DOMAIN_HEROKU
 
 
 class RedirectToNonWwwMiddleware:
@@ -8,9 +8,11 @@ class RedirectToNonWwwMiddleware:
 
     def __call__(self, request):
         host = request.get_host().partition(':')[0]
-        if host == DOMAIN_NAME_WWW:
+        if host == DOMAIN_NAME_WWW or DOMAIN_HEROKU:
+            # high remove print statements
             print(host)
             print(DOMAIN_NAME_WWW)
+            print(DOMAIN_HEROKU)
             print(DOMAIN_NAME_HTTPS + request.path)
             return HttpResponsePermanentRedirect(
                 DOMAIN_NAME_HTTPS + request.path
