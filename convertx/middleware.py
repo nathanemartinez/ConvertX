@@ -8,7 +8,7 @@ class RedirectToNonWwwMiddleware:
 
     def __call__(self, request):
         host = request.get_host().partition(':')[0]
-        if host == DOMAIN_NAME_WWW or DOMAIN_HEROKU:
+        if host == DOMAIN_NAME_WWW or host == DOMAIN_HEROKU:
             # high remove print statements
             print(host)
             print(DOMAIN_NAME_WWW)
