@@ -66,7 +66,6 @@ CSRF_COOKIE_SECURE = True
 
 # Emails
 DEFAULT_FROM_EMAIL = os.getenv('ADMIN_EMAIL')
-SERVER_EMAIL = os.getenv('ADMIN_EMAIL')
 
 # allauth
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
@@ -74,5 +73,8 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 # defender
 DEFENDER_COOLOFF_TIME = 300
 DEFENDER_REDIS_URL = os.getenv('REDIS_URL')
+
+# other
+APPEND_SLASH = True
 
 django_heroku.settings(locals())
